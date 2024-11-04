@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { propertyDetails } from '../../dummy-data/home-property'; // Adjust the path as necessary
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import Navbar from '../../components/user/Navbar';
@@ -26,6 +26,17 @@ const PropertyDetails = () => {
     const { id } = useParams();
     const property = propertyDetails[id];
     const [favorites, setFavorites] = useState({});
+    const navigate = useNavigate();
+
+    const handleReserve = () => {
+      const reservation = {
+        id: property.id,
+        title: property.title,
+        startDate: new Date(),
+        endDate: new Date(new Date().setDate(new Date().getDate() + 7)) // example end date a week from now
+      };
+      navigate('/reservation', { state: { reservation } });
+    };
   
     const toggleFavorite = (id) => {
       setFavorites(prev => ({
@@ -151,7 +162,7 @@ const PropertyDetails = () => {
                 </LoadScript>
             </div>
           </div>
-          <BookingCard amount={property.amount}/>
+          <BookingCard amount={property.amount} handleReserve={handleReserve}/>
         </div>
         <Newsletter />
         <Footer />

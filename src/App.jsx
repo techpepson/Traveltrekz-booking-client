@@ -6,9 +6,11 @@ import Home from './pages/users/Home';
 import Login from './pages/users/Login';
 import Register from './pages/users/Register';
 // import SigninOption from './components/user/SigninOption';
-import SignedinOption from './components/user/SignedinOption';
+// import SignedinOption from './components/user/SignedinOption';
 import Account from './pages/users/Account';
 import AccountEdit from './pages/users/AccountEdit';
+import Reservation from './pages/users/Reservation';
+import Wishlist from './pages/users/Wishlist';
 
 const App = () => {
   return (   
@@ -20,7 +22,8 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/account' element={<Account />} />
         <Route path='/account-edit' element={<AccountEdit />} />
-        <Route path='/op' element={<SignedinOption />} />
+        <Route path='/reservation' element={<Reservation />} />
+        <Route path='/wishlist' element={<Wishlist />} />
       </Routes>
   );
 };
