@@ -20,7 +20,7 @@ const Home = () => {
       <Hero />
       <div className="py-16">
         <div className="mx-auto px-16">
-          <div className='flex flex-col gap-12'>
+          <div className='flex flex-col gap-6 lg:gap-12'>
             <div className='flex items-end justify-between'>
               <div className='flex flex-col gap-5'>
                 <h1 className='text-header-600 text-4xl font-bold lg:max-w-[30vw] leading-[1.2]'>
