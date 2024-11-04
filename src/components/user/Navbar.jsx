@@ -1,6 +1,7 @@
 import React from 'react'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FaUserCircle } from "react-icons/fa";
+import SigninOption from './SigninOption'
 
 
 const Navbar = () => {
@@ -18,10 +19,15 @@ const Navbar = () => {
                     <button className="bg-white text-blue-600 px-4 py-2 rounded-full font-medium hover:bg-blue-50 transition">
                         Become A Host
                     </button>
-                    <button className="text-blue-600 bg-white rounded-3xl flex items-center gap-2 text-2xl px-3 p-2">
-                        <RxHamburgerMenu className='font-bold hover:bg-header-200 hover:rounded-full'/>
-                        <FaUserCircle className='text-gray-300'/>
-                    </button>
+                    <div className="dropdown dropdown-end">
+                        <button tabIndex={0} role="button" className="text-blue-600 bg-white rounded-3xl flex items-center gap-2 text-2xl px-3 p-2">
+                            <RxHamburgerMenu className='font-bold hover:bg-header-200 hover:rounded-full'/>
+                            <FaUserCircle className='text-gray-300'/>
+                        </button>
+                        <ul tabIndex={0} className="dropdown-content menu rounded-box z-[1] w-52 shadow">
+                            <SigninOption />
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
