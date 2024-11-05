@@ -27,7 +27,7 @@ const Navbar = () => {
                 )}
               </button>
             </div>
-            <a href="/" className="text-xl lg:text-2xl font-bold text-white">
+            <a href="/" className="text-xl md:text-2xl font-bold text-white">
               TravelTrekz
             </a>
           </div>
@@ -43,7 +43,7 @@ const Navbar = () => {
             </a>
           </div>
           <ul className="flex items-center gap-2 lg:gap-8">
-            <button className="bg-white hidden lg:block text-blue-600 py-1 px-2 lg:px-4 lg:py-2 rounded-full font-medium hover:bg-blue-50 transition">
+            <button className="bg-white hidden lg:block text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition">
               Become A Host
             </button>
             <div className="dropdown dropdown-end">

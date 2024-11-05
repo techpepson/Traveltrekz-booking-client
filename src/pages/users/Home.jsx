@@ -18,12 +18,12 @@ const Home = () => {
     <>
       <Navbar />
       <Hero />
-      <div className="py-16">
-        <div className="mx-auto px-16">
+      <div className="py-6 md:py-16 max-[340px]:mt-6">
+        <div className="mx-auto px-2 md:px-8 lg:px-16">
           <div className='flex flex-col gap-6 lg:gap-12'>
             <div className='flex items-end justify-between'>
-              <div className='flex flex-col gap-5'>
-                <h1 className='text-header-600 text-4xl font-bold lg:max-w-[30vw] leading-[1.2]'>
+              <div className='flex flex-col gap-2 md:gap-5'>
+                <h1 className='text-header-600 max-[340px]:text-lg max-sm:text-xl md:text-3xl lg:text-4xl font-bold max-[340px]:w-[50vw] max-sm:w-[48vw] md:w-[40vw] lg:max-w-[30vw] leading-[1.2]'>
                 <span className="relative inline-block text-blue-600">
                     Latest
                     <svg className="absolute left-0 right-0 -bottom-2 w-full h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10">
@@ -38,10 +38,10 @@ const Home = () => {
             </div>
             <PropertySection properties={properties.latest} />
           </div>
-          <div className='flex flex-col gap-12'>
+          <div className='flex flex-col gap-6 lg:gap-12'>
             <div className='flex items-end justify-between'>
-              <div className='flex flex-col gap-5'>
-                <h1 className='text-header-600 text-4xl font-bold max-w-72 leading-[1.2]'>
+              <div className='flex flex-col gap-2 md:gap-5'>
+                <h1 className='text-header-600 max-[340px]:text-lg max-sm:text-xl md:text-3xl max-[340px]:w-[50vw] max-sm:w-[48vw] lg:text-4xl font-bold max-w-72 leading-[1.2]'>
                 <span className="relative inline-block text-blue-600">
                     Nearby
                     <svg className="absolute left-0 right-0 -bottom-2 w-full h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10">
@@ -56,10 +56,10 @@ const Home = () => {
             </div>
             <PropertySection properties={properties.nearby} />
           </div>
-          <div className='flex flex-col gap-12'>
+          <div className='flex flex-col gap-6 lg:gap-12'>
             <div className='flex items-end justify-between'>
-              <div className='flex flex-col gap-5'>
-                <h1 className='text-header-600 text-4xl font-bold max-w-72 leading-[1.2]'>
+              <div className='flex flex-col gap-2 md:gap-5'>
+                <h1 className='text-header-600 max-[340px]:text-lg max-sm:text-xl md:text-3xl max-[340px]:w-[50vw] max-sm:w-[48vw] lg:text-4xl font-bold max-w-72 leading-[1.2]'>
                 <span className="relative inline-block text-blue-600">
                     Top
                     <svg className="absolute left-0 right-0 -bottom-2 w-full h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10">
@@ -75,10 +75,10 @@ const Home = () => {
             <PropertySection properties={properties.topRated} />
           </div>
           <Banner />
-          <div className='flex flex-col gap-12 mt-16'>
+          <div className='flex flex-col gap-6 lg:gap-12 mt-16'>
             <div className='flex items-end justify-between'>
-              <div className='flex flex-col gap-5'>
-                <h1 className='text-header-600 text-4xl font-bold max-w-[35vw] xl:max-w-[30vw] leading-[1.2]'>
+              <div className='flex flex-col gap-2 md:gap-5'>
+                <h1 className='text-header-600 max-[340px]:text-lg max-sm:text-xl md:text-3xl max-[340px]:w-[50vw] max-sm:w-[48vw] lg:text-4xl font-bold max-w-[45vw] lg:max-w-[35vw] xl:max-w-[30vw] leading-[1.2]'>
                 <span className="relative inline-block text-blue-600">
                     Featured
                     <svg className="absolute left-0 right-0 -bottom-2 w-full h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10">
@@ -94,10 +94,10 @@ const Home = () => {
             <Property displayCount={displayCount}/>
             <Banner2 />
           </div>
-          <div className='flex flex-col gap-12 mt-16'>
+          <div className='flex flex-col gap-6 lg:gap-12 mt-10 md:mt-16'>
             <div className='flex items-end justify-between'>
-              <div className='flex flex-col gap-9'>
-                <h1 className='text-header-600 text-4xl font-bold max-w-[35vw] xl:max-w-[30vw] leading-[1.2]'>
+              <div className='flex flex-col gap-4 md:gap-9'>
+                <h1 className='text-header-600 max-[340px]:text-lg max-sm:text-xl md:text-3xl max-[340px]:w-[60vw] max-sm:w-[70vw] lg:text-4xl font-bold md:max-w-[35vw] xl:max-w-[30vw] leading-[1.2]'>
                 Property Rental
                 <span className="relative inline-block text-blue-600">
                     Guides
@@ -121,10 +121,10 @@ const Home = () => {
             <Guide />
             <Banner3 />
           </div>
-          <div className='my-12 flex items-center justify-between gap-28'>
-            <div className='flex flex-col gap-5 justify-center'>
-              <div className='flex flex-col gap-5'>
-                <h1 className='text-header-600 text-4xl font-bold max-w-[35vw] xl:max-w-[35vw] leading-[1.2]'>
+          <div className='my-12 flex flex-col gap-4 md:flex-row items-center justify-between lg:gap-28'>
+            <div className='flex flex-col gap-2 md:gap-5 justify-center'>
+              <div className='flex flex-col gap-2 md:gap-5 max-sm:px-2'>
+                <h1 className='text-header-600 max-[340px]:text-lg max-sm:text-xl md:text-3xl max-[340px]:w-[70vw] max-sm:w-[70vw] lg:text-4xl font-bold md:max-w-[35vw] xl:max-w-[35vw] leading-[1.2]'>
                 <span className="relative inline-block text-blue-600">
                     Discover
                     <svg className="absolute left-0 right-0 -bottom-2 w-full h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10">
@@ -132,22 +132,22 @@ const Home = () => {
                     </svg>
                 </span> More About Property Rental
                 </h1>
-                <div className='h-1 w-44 bg-blue-600'/>
+                <div className='h-1 w-24 md:w-44 bg-blue-600'/>
               </div>
-              <p className='text-header-400'>Unlock the potential of your property with TravelTrekz. Whether you're a seasoned host or just starting out, we'll guide you through every step — from creating a standout listing to providing exceptional guest experiences. With our seamless tools and dedicated support, renting your space has never been easier or more rewarding.</p>
-              <div className='text-header-600 text-lg font-semibold flex items-center gap-5'>
-                <button>Ask A Question</button>
-                <button>Find A Property</button>
+              <p className='text-header-400 max-md:text-sm max-sm:w-screen max-sm:px-2 max-lg:w-[60vw]'>Unlock the potential of your property with TravelTrekz. Whether you're a seasoned host or just starting out, we'll guide you through every step — from creating a standout listing to providing exceptional guest experiences. With our seamless tools and dedicated support, renting your space has never been easier or more rewarding.</p>
+              <div className='text-header-600 text-lg font-semibold flex items-center gap-2 max-sm:px-2 md:gap-5'>
+                <button className='max-sm:text-sm'>Ask A Question</button>
+                <button className='max-sm:text-sm'>Find A Property</button>
               </div>
-              <button className='text-lg font-semibold w-fit bg-blue-600 text-white px-4 py-2 rounded-full'>Discover More</button>
+              <button className='md:text-lg font-semibold w-fit max-sm:mx-2 bg-blue-600 text-white px-4 md:py-2 py-1 rounded-full'>Discover More</button>
             </div>
             <div className="relative rounded-lg overflow-hidden h-full w-full">
               <img 
                   src={Discover} 
                   alt='discover'
-                  className="w-[80%] h-full object-cover"
+                  className="lg:w-[80%] w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 opacity-100 hover:opacity-0 w-[80%] rounded-lg"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 opacity-100 hover:opacity-0 md:w-[80%] rounded-lg"></div>
             </div>
           </div>
         </div>

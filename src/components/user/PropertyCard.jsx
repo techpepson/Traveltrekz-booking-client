@@ -17,7 +17,7 @@ const PropertyCard = ({ images, name, location, range, position, id }) => {
         }));
     };
 
-    const borderRadiusClass = position === 'left' ? 'rounded-bl-[121px]' : position === 'right' ? 'rounded-br-[121px]' : 'rounded-b-none';
+    const borderRadiusClass = position === 'left' ? 'lg:rounded-bl-[121px] rounded-bl-[61px]' : position === 'right' ? 'lg:rounded-br-[121px] rounded-br-[61px]' : 'rounded-b-none';
     const paddingClass = position === 'left' ? 'px-16' : '';
 
     const handleCardClick = () => {
@@ -47,7 +47,7 @@ const PropertyCard = ({ images, name, location, range, position, id }) => {
                 <div className="absolute top-1/2 right-2 transform -translate-y-1/2 cursor-pointer z-50" onClick={nextImage}>
                     <button className="bg-white p-2 rounded-full shadow">❯</button>
                 </div>
-                <p className={`absolute text-header-200 bottom-2 left-4 z-50 font-medium ${paddingClass}`}>${range}</p>
+                <p className={`absolute text-header-200 bottom-2 left-4 z-50 font-medium ${paddingClass}`}>${range} USD</p>
                 <div className={`absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 opacity-100 hover:opacity-0 ${borderRadiusClass}`}></div>
                 <div 
                     className={`absolute top-2 right-2 cursor-pointer text-3xl text-blue-400 ${favorites[id] ? 'text-blue-400' : ''} p-2 rounded-full`}

@@ -11,7 +11,7 @@ const data = [
 
 const Guide = () => {
   return (
-    <div className='grid grid-cols-3 gap-6'>
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
         {data.map((item) => {
             return(
                 <div key={item.id} className="relative rounded-lg overflow-hidden">
