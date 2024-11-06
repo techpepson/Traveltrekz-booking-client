@@ -13,7 +13,7 @@ const PropertySection = ({ properties, scrollRef }) => {
 
     return (
         <div className="mb-8">
-            <div className="flex  md:gap-4 overflow-x-auto scrollbar-hide pb-4" ref={scrollRef}>
+            <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-4" ref={scrollRef}>
                 {properties.map(property => (
                     <div 
                         key={property.id} 

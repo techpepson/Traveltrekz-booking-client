@@ -40,7 +40,7 @@ const Home = () => {
       <Navbar />
       <Hero />
       <div className="py-6 md:py-16 max-[340px]:mt-6">
-        <div className="mx-auto px-2 md:px-8 lg:px-16">
+        <div className="mx-auto px-4 md:px-8 lg:px-16">
           <div className='flex flex-col gap-6 lg:gap-12'>
             <div className='flex items-end justify-between'>
               <div className='flex flex-col gap-2 md:gap-5'>
@@ -121,7 +121,7 @@ const Home = () => {
           <div className='flex flex-col gap-6 lg:gap-12 mt-10 md:mt-16'>
             <div className='flex items-end justify-between'>
               <div className='flex flex-col gap-4 md:gap-9'>
-                <h1 className='text-header-600 max-[340px]:text-lg max-sm:text-xl md:text-3xl max-[340px]:w-[60vw] max-sm:w-[70vw] lg:text-4xl font-bold md:max-w-[35vw] xl:max-w-[30vw] leading-[1.2]'>
+                <h1 className='text-header-600 max-[340px]:text-lg max-sm:text-xl md:text-3xl max-[340px]:w-[50vw] max-sm:w-[50vw] lg:text-4xl font-bold md:max-w-[35vw] xl:max-w-[30vw] leading-[1.2]'>
                 Property Rental
                 <span className="relative inline-block text-blue-600">
                     Guides
@@ -136,7 +136,7 @@ const Home = () => {
                     </svg>
                 </span>
                 </h1>
-                <div className='h-1 w-44 bg-blue-600'/>
+                <div className='h-1 w-24 md:w-44 bg-blue-600'/>
               </div>
               <div>
                 {/* Arrows */}
