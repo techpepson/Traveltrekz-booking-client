@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Navbar from '../../components/user/Navbar'
 import Hero from '../../components/user/Hero'
 import PropertySection from '../../components/user/PropertySection'
@@ -11,9 +11,30 @@ import Banner3 from '../../components/user/Banner3'
 import Discover from '../../assets/user/discover.png'
 import Newsletter from '../../components/user/Newsletter'
 import Footer from '../../components/user/Footer'
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 
 const Home = () => {
     const [displayCount, _ ] = useState(6);
+    const latestScrollRef = useRef(null);
+    const nearbyScrollRef = useRef(null);
+    const topRatedScrollRef = useRef(null);
+
+    const scrollLeft = (scrollRef) => {
+      scrollRef.current.scrollBy({
+        top: 0,
+        left: -scrollRef.current.offsetWidth,
+        behavior: 'smooth'
+      });
+    };
+
+    const scrollRight = (scrollRef) => {
+      scrollRef.current.scrollBy({
+        top: 0,
+        left: scrollRef.current.offsetWidth,
+        behavior: 'smooth'
+      });
+    };
+    
   return (
     <>
       <Navbar />
@@ -32,11 +53,12 @@ const Home = () => {
                 </span> on the Property Listing</h1>
                 <div className='h-1 w-32 bg-blue-600'/>
               </div>
-              <div>
-                {/* Arrows */}
+              <div className="flex gap-1">
+                <MdChevronLeft onClick={() => scrollLeft(latestScrollRef)} className="cursor-pointer text-3xl text-blue-600" />
+                <MdChevronRight onClick={() => scrollRight(latestScrollRef)} className="cursor-pointer text-3xl text-blue-600" />
               </div>
             </div>
-            <PropertySection properties={properties.latest} />
+            <PropertySection properties={properties.latest} scrollRef={latestScrollRef}/>
           </div>
           <div className='flex flex-col gap-6 lg:gap-12'>
             <div className='flex items-end justify-between'>
@@ -50,11 +72,12 @@ const Home = () => {
                 </span> Listed Properties</h1>
                 <div className='h-1 w-32 bg-blue-600'/>
               </div>
-              <div>
-                {/* Arrows */}
+              <div className="flex gap-1">
+                <MdChevronLeft onClick={() => scrollLeft(nearbyScrollRef)} className="cursor-pointer text-3xl text-blue-600" />
+                <MdChevronRight onClick={() => scrollRight(nearbyScrollRef)} className="cursor-pointer text-3xl text-blue-600" />
               </div>
             </div>
-            <PropertySection properties={properties.nearby} />
+            <PropertySection properties={properties.nearby} scrollRef={nearbyScrollRef} />
           </div>
           <div className='flex flex-col gap-6 lg:gap-12'>
             <div className='flex items-end justify-between'>
@@ -68,11 +91,12 @@ const Home = () => {
                 </span> Rated Properties</h1>
                 <div className='h-1 w-32 bg-blue-600'/>
               </div>
-              <div>
-                {/* Arrows */}
+              <div className="flex gap-1">
+                <MdChevronLeft onClick={() => scrollLeft(topRatedScrollRef)} className="cursor-pointer text-3xl text-blue-600" />
+                <MdChevronRight onClick={() => scrollRight(topRatedScrollRef)} className="cursor-pointer text-3xl text-blue-600" />
               </div>
             </div>
-            <PropertySection properties={properties.topRated} />
+            <PropertySection properties={properties.topRated} scrollRef={topRatedScrollRef}/>
           </div>
           <Banner />
           <div className='flex flex-col gap-6 lg:gap-12 mt-16'>
