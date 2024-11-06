@@ -145,10 +145,10 @@ const Home = () => {
             <Guide />
             <Banner3 />
           </div>
-          <div className='my-12 flex flex-col gap-4 md:flex-row items-center justify-between lg:gap-28'>
+          <div className='my-12 flex flex-col gap-4 md:flex-row items-center justify-between lg:gap-28 max-sm:px-4'>
             <div className='flex flex-col gap-2 md:gap-5 justify-center'>
               <div className='flex flex-col gap-2 md:gap-5 max-sm:px-2'>
-                <h1 className='text-header-600 max-[340px]:text-lg max-sm:text-xl md:text-3xl max-[340px]:w-[70vw] max-sm:w-[70vw] lg:text-4xl font-bold md:max-w-[35vw] xl:max-w-[35vw] leading-[1.2]'>
+                <h1 className='text-header-600 max-[340px]:text-lg max-sm:text-xl md:text-3xl max-[340px]:w-[60vw] max-sm:w-[60vw] lg:text-4xl font-bold md:max-w-[35vw] xl:max-w-[35vw] leading-[1.2]'>
                 <span className="relative inline-block text-blue-600">
                     Discover
                     <svg className="absolute left-0 right-0 -bottom-2 w-full h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10">

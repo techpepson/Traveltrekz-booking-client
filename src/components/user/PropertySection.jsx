@@ -13,7 +13,7 @@ const PropertySection = ({ properties, scrollRef }) => {
 
     return (
         <div className="mb-8">
-            <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-4" ref={scrollRef}>
+            <div className="flex md:gap-4 overflow-x-auto scrollbar-hide pb-4" ref={scrollRef}>
                 {properties.map(property => (
                     <div 
                         key={property.id} 
@@ -32,9 +32,9 @@ const PropertySection = ({ properties, scrollRef }) => {
                             >
                                 {favorites[property.id] ? <MdFavorite /> : <MdFavoriteBorder />}
                             </div>
-                            <div className="absolute bottom-0 left-0 p-4">
-                                <h3 className="text-white font-medium text-lg">{property.title}</h3>
-                                <p className="text-white/80 text-sm">{property.location}</p>
+                            <div className="absolute bottom-0 left-0 p-2 md:p-4">
+                                <h3 className="text-white font-medium text-[16px] md:text-lg">{property.title}</h3>
+                                <p className="text-white/80 text-[12px] md:text-sm">{property.location}</p>
                             </div>
                         </div>
                     </div>
