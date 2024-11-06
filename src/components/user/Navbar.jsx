@@ -57,7 +57,7 @@ const Navbar = () => {
               </button>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu rounded-box z-[1] w-52 shadow"
+                className="dropdown-content menu rounded-box z-50 w-52 shadow"
               >
                 <SigninOption />
               </ul>
@@ -65,8 +65,13 @@ const Navbar = () => {
           </ul>
         </div>
         {mobileDrawerOpen && (
-          <div className="fixed left-0 z-20 w-3/4 h-[90vh] p-12 flex flex-col justify-center items-center bg-blue-600 transition-all duration-300 ease-linear lg:hidden">
-            {/* Add mobile menu content here */}
+          <div className="fixed left-0 z-20 w-3/4 h-[90vh] p-12 flex flex-col justify-center items-center bg-blue-600 transition-all duration-300 ease-linear lg:hidden text-white gap-4">
+            <p>Find A Property</p>
+            <p>Shared Stories</p>
+            <p>About Us</p>
+            <button className="bg-white text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition">
+              Become A Host
+            </button>
           </div>
         )}
       </div>
