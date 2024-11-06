@@ -66,7 +66,9 @@ const Navbar = () => {
         </div>
         {mobileDrawerOpen && (
           <div className="fixed left-0 z-20 w-3/4 h-[90vh] p-12 flex flex-col justify-center items-center bg-blue-600 transition-all duration-300 ease-linear lg:hidden text-white gap-4">
-            <p>Find A Property</p>
+            <Link to="/property" onClick={toggleNavbar}>
+              <p>Find A Property</p>
+            </Link>
             <p>Shared Stories</p>
             <p>About Us</p>
             <button className="bg-white text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition">
