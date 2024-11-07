@@ -28,15 +28,15 @@ const Login = () => {
                     </Link>
                 </div>
             </div>
-            <div className='flex items-center max-lg:border max-lg:rounded-2xl max-sm:m-8 max-lg:m-36 max-lg:py-16 max-sm:py-4 max-lg:shadow-lg max-sm:mt-24 w-full justify-center flex-col gap-2 md:gap-10'>
+            <div className='flex items-center max-lg:border max-lg:rounded-2xl max-[340px]:mx-2 max-sm:m-8 max-lg:m-36 max-lg:py-16 max-sm:py-4 max-lg:shadow-lg max-sm:mt-24 w-full justify-center flex-col gap-2 md:gap-10'>
                 <div className='flex flex-col gap-0 items-center mb-10'>
                     <h1 className='text-blue-600 text-lg md:text-4xl font-bold'>TravelTrekz</h1>
                     <p>Log in to TravelTrekz</p>
                 </div>
                 <form action="" className='flex flex-col md:gap-10 gap-4 px-4 w-full md:px-20 '>
                     {/* <input type="text" required placeholder='Full Name' className='text-xl outline-none border-b w-full focus:border-b-blue-600'/> */}
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder='Email' className='text-xl outline-none border-b w-full focus:border-b-blue-600'/>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder='Password' className='text-xl outline-none border-b w-full focus:border-b-blue-600'/>
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder='Email' className='text-lg md:text-xl outline-none border-b w-full focus:border-b-blue-600'/>
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder='Password' className='text-lg md:text-xl outline-none border-b w-full focus:border-b-blue-600'/>
                     {/* <div className='flex items-center gap-2'>
                         <input type="checkbox" name="" id="" className='w-5 h-5 cursor-pointer' required/>
                         <p className=''>I have read, understood and agreed to all <span className='text-blue-600 cursor-pointer'>terms</span> and <span className='text-blue-600 cursor-pointer'>condition</span>.</p>

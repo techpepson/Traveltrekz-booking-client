@@ -28,7 +28,7 @@ const Register = () => {
                     </Link>
                 </div>
             </div>
-            <div className='flex items-center justify-center flex-col gap-10 md:gap-6 max-lg:border max-lg:rounded-2xl max-sm:m-8 max-lg:m-36 max-lg:py-16 max-sm:py-4 max-lg:shadow-lg max-sm:mt-24 xl:gap-8'>
+            <div className='flex items-center justify-center flex-col gap-10 md:gap-6 max-lg:border max-lg:rounded-2xl max-sm:m-8 max-lg:m-36 max-lg:py-16 max-[340px]:mx-2 max-sm:py-4 max-lg:shadow-lg max-sm:mt-24 xl:gap-8'>
                 <div className='flex flex-col gap-0 items-center xl:mb-6'>
                     <h1 className='text-blue-600 font-bold text-xl md:text-4xl'>TravelTrekz</h1>
                     <p>Create an account with TravelTrekz</p>

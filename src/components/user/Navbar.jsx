@@ -65,7 +65,7 @@ const Navbar = () => {
           </ul>
         </div>
         {mobileDrawerOpen && (
-          <div className="fixed left-0 z-20 w-3/4 h-[90vh] p-12 flex flex-col justify-center items-center bg-blue-600 transition-all duration-300 ease-linear lg:hidden text-white gap-4">
+          <div className="fixed left-0 z-20 w-3/4 h-[95vh] p-12 flex flex-col justify-center items-center bg-blue-600 transition-all duration-300 ease-linear lg:hidden text-white gap-4">
             <Link to="/property" onClick={toggleNavbar}>
               <p>Find A Property</p>
             </Link>
