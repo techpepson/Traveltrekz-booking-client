@@ -51,11 +51,11 @@ const PropertyDetails = () => {
   
     // Feature to icon mapping
     const featureIcons = {
-      'Bedrooms': <IoBedOutline className='text-3xl text-header-600' />,
-      'Bathrooms': <LuBath className='text-3xl text-header-600' />,
-      'Cars': <FaCar className='text-3xl text-header-600' />,
-      'Pet Friendly': <MdPets className='text-3xl text-header-600' />,
-      'No Pets': <MdPets className='text-3xl text-header-600' />,
+      'Bedrooms': <IoBedOutline className='text-xl md:text-3xl text-header-600' />,
+      'Bathrooms': <LuBath className='text-xl md:text-3xl text-header-600' />,
+      'Cars': <FaCar className='text-xl md:text-3xl text-header-600' />,
+      'Pet Friendly': <MdPets className='text-xl md:text-3xl text-header-600' />,
+      'No Pets': <MdPets className='text-xl md:text-3xl text-header-600' />,
     };
   
     // Count features for rendering
@@ -81,25 +81,25 @@ const PropertyDetails = () => {
     return (
       <>
         <Navbar />
-        <div className="mx-auto px-8 py-10 grid grid-cols-2 gap-4">
+        <div className="mx-auto md:px-8 px-4 py-10 max-lg:mt-16 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
           <img src={property.images[0]} alt={property.title} className='rounded-md' />
-          <div className='grid grid-cols-2 w-[45vw] gap-2'>
-            <div className='grid grid-rows-2 gap-2 w-full'>
+          <div className='md:grid flex md:grid-cols-2 w-full md:w-[45vw] gap-2'>
+            <div className='flex md:grid md:grid-rows-2 gap-2 w-full'>
               <img src={property.images[1]} alt={property.title} className='rounded-md' />
               <img src={property.images[2]} alt={property.title} className='rounded-md' />
             </div>
-            <div className='grid grid-rows-2 gap-2 w-full'>
+            <div className='flex md:grid md:grid-rows-2 gap-2 w-full'>
               <img src={property.images[3]} alt={property.title} className='rounded-md' />
               <img src={property.images[2]} alt={property.title} className='rounded-md' />
             </div>
           </div>
         </div>
-        <div className='px-16 py-8 flex justify-between gap-20'>
+        <div className='max-[340px]:px-2 max-sm:px-6 md:px-16 md:py-8 flex flex-col lg:flex-row justify-between gap-8 lg:gap-20'>
           <div>
             <div className='flex items-center justify-between'>
               <div>
-                <h1 className='text-3xl font-bold text-header-600'>{property.title}</h1>
-                <p className='mt-2 text-header-400'>{property.location}</p>
+                <h1 className='text-xl md:text-3xl font-bold text-header-600'>{property.title}</h1>
+                <p className='mt-2 text-header-400 max-sm:text-sm'>{property.location}</p>
               </div>
               <div className='flex items-center gap-2'>
                 <div 
@@ -112,10 +112,10 @@ const PropertyDetails = () => {
               </div>
             </div>
   
-            <ul className='mt-12 grid grid-cols-4 gap-4'>
+            <ul className='md:mt-12 mt-4 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4'>
               {Object.entries(featureCount).map(([feature, count], index) => (
                 count > 0 && (
-                  <div key={index} className='bg-blue-200 p-6 rounded-md flex items-center flex-col gap-2'>
+                  <div key={index} className='bg-blue-200 p-2 md:p-6 max-sm:text-center max-sm:text-sm rounded-md flex items-center flex-col gap-2'>
                     {featureIcons[feature]}
                     <span className='text-header-600'>{count} {feature}</span>
                   </div>
@@ -123,11 +123,14 @@ const PropertyDetails = () => {
               ))}
             </ul>
             <div className='flex flex-col gap-2 mt-8'>
-                <h1 className='text-3xl text-header-600 font-bold'>Description</h1>
-                <p>{property.description}</p>
+                <h1 className='text-xl md:text-3xl text-header-600 font-bold'>Description</h1>
+                <p className='max-sm:text-sm'>{property.description}</p>
+            </div>
+            <div className='lg:hidden pt-4'>
+              <BookingCard amount={property.amount} handleReserve={handleReserve}/>
             </div>
             <div className='flex flex-col gap-2 mt-8'>
-                <h1 className='text-3xl text-header-600 font-bold'>Offered Amenities</h1>
+                <h1 className='text-xl md:text-3xl text-header-600 font-bold'>Offered Amenities</h1>
                 <div className='grid grid-cols-2 gap-4 mt-4'>
                   {property.amenities.map((amenity, index) => (
                     <div key={index} className='flex items-center'>
@@ -136,10 +139,10 @@ const PropertyDetails = () => {
                     </div>
                   ))}
                 </div>
-                <button className='text-blue-400 border border-blue-400 rounded-md py-2 px-4 w-fit mt-4'>Show all amenities</button>
+                <button className='text-blue-400 border border-blue-400 rounded-md py-1 px-2 md:py-2 md:px-4 w-fit mt-4'>Show all amenities</button>
             </div>
             <div className='flex flex-col gap-2 mt-8'>
-                <h1 className='text-3xl text-header-600 font-bold'>Safety & Hygiene</h1>
+                <h1 className='text-xl md:text-3xl text-header-600 font-bold'>Safety & Hygiene</h1>
                 <div className='grid grid-cols-2 gap-4 mt-4'>
                   {property.amenities.map((amenity, index) => (
                     <div key={index} className='flex items-center'>
@@ -148,9 +151,9 @@ const PropertyDetails = () => {
                     </div>
                   ))}
                 </div>
-                <button className='text-blue-400 border border-blue-400 rounded-md py-2 px-4 w-fit mt-4'>Show all amenities</button>
+                <button className='text-blue-400 border border-blue-400 rounded-md py-1 md:py-2 px-2 md:px-4 w-fit mt-4'>Show all amenities</button>
             </div>
-            <div>
+            <div className='py-8'>
                 <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY"> {/* Replace with your API Key */}
                 <GoogleMap
                     mapContainerStyle={containerStyle}
@@ -162,7 +165,9 @@ const PropertyDetails = () => {
                 </LoadScript>
             </div>
           </div>
-          <BookingCard amount={property.amount} handleReserve={handleReserve}/>
+          <div className='max-lg:hidden w-full'>
+            <BookingCard amount={property.amount} handleReserve={handleReserve}/>
+          </div>
         </div>
         <Newsletter />
         <Footer />
