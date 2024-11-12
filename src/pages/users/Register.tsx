@@ -220,8 +220,9 @@ const Register = () => {
           <div className="flex items-center flex-col gap-2 max-sm:-mt-5">
             <p className="text-xl text-header-400 font-medium">OR</p>
             <button
+              disabled={!isAgreementChecked}
               onClick={handleGoogleApi}
-              className="py-2 flex items-center px-10 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold border border-blue-600 rounded-xl transition duration-300 ease-in"
+              className="py-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center px-10 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold border border-blue-600 rounded-xl transition duration-300 ease-in"
             >
               Sign In With Google
             </button>

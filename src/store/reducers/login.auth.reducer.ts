@@ -20,6 +20,16 @@ export const loginReducer = createSlice({
       state.success = false;
       state.error = false;
     });
+    builder.addCase(LoginAuthThunk.rejected, (state) => {
+      state.loading = false;
+      state.success = false;
+      state.error = true;
+    });
+    builder.addCase(LoginAuthThunk.fulfilled, (state) => {
+      state.loading = false;
+      state.success = true;
+      state.error = false;
+    });
   },
 });
 

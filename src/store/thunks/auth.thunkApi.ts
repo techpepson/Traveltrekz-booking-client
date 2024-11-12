@@ -6,6 +6,7 @@ import {
 } from "../../interface/auth.reducer.interface";
 import axios from "axios";
 import { toast } from "react-toastify"; // Importing Toastify
+import Cookie from "js-cookie";
 
 export const RegisterAuthThunk = createAsyncThunk(
   "auth/register",
@@ -22,7 +23,9 @@ export const RegisterAuthThunk = createAsyncThunk(
 
       // Check if the status is 201 (success)
       if (response?.status === 201) {
-        window.location.href = import.meta.env.VITE_LOGIN_URL;
+        setTimeout(() => {
+          window.location.href = import.meta.env.VITE_LOGIN_URL;
+        }, 5000);
         toast.success(response.data.message); // Show success toast
         return response.data.message; // Return the success message
       }
@@ -77,6 +80,29 @@ export const LoginAuthThunk = createAsyncThunk(
 
       // Check if the status is 201 (success)
       if (response?.status === 200) {
+        //store the logged in user details in a cookie
+        Cookie.set("user_name", response.data.name);
+        Cookie.set("generated_token", response.data.token);
+        Cookie.set("user_status", response.data.userStatus);
+
+        //redirect the logged in user based on their user status
+        if (response.data.userStatus !== "approved") {
+          setTimeout(() => {
+            window.location.href = import.meta.env.VITE_USER_DETAILS_PAGE;
+          }, 5000);
+        } else {
+          if (response.data.userType === "host") {
+            setTimeout(() => {
+              window.location.href = import.meta.env.VITE_HOST_HOMEPAGE;
+            }, 5000);
+          }
+          if (response.data.userType === "guest") {
+            setTimeout(() => {
+              window.location.href = import.meta.env.VITE_GUEST_HOMEPAGE;
+            }, 5000);
+          }
+        }
+
         toast.success(response.data.message); // Show success toast
         return response.data.message; // Return the success message
       }

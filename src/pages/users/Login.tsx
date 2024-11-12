@@ -7,10 +7,12 @@ import { LoginAuthThunk } from "../../store/thunks/auth.thunkApi";
 import { AppDispatch, RootState } from "../../store/config/store.config";
 import { useSelector, useDispatch } from "react-redux";
 import { LoginBodyTypes } from "../../interface/auth.reducer.interface";
+import { FaLock, FaUnlock } from "react-icons/fa";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   //call the useDispatch method
   const dispatch = useDispatch<AppDispatch>();
@@ -30,6 +32,18 @@ const Login: React.FC = () => {
       userPassword: password,
     };
     dispatch(LoginAuthThunk(loginPayload));
+  };
+
+  //toggle password view function
+  const togglePasswordView = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+  //handle google oauth thunk api request
+  const handleGoogleApi = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    window.location.href = "https://traveltrekz.onrender.com/api/auth/google";
   };
 
   return (
@@ -73,15 +87,26 @@ const Login: React.FC = () => {
               placeholder="Email"
               className="text-lg md:text-xl outline-none border-b w-full focus:border-b-blue-600"
             />
-            <input
-              type="password"
-              name="userPassword"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="Password"
-              className="text-lg md:text-xl outline-none border-b w-full focus:border-b-blue-600"
-            />
+            <div className="flex items-center border-b w-full focus:border-b-blue-600">
+              <input
+                type={isPasswordVisible ? "string" : "password"}
+                name="userPassword"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Password"
+                className="text-lg md:text-xl outline-none border-b w-full focus:border-b-blue-600"
+              />
+              {isPasswordVisible ? (
+                <button onClick={togglePasswordView}>
+                  <FaLock />
+                </button>
+              ) : (
+                <button onClick={togglePasswordView}>
+                  <FaUnlock className="font-light" />
+                </button>
+              )}
+            </div>
             <div className=" text-white max-sm:mt-2 max-sm:text-sm flex flex-col md:flex-row md:items-center justify-between w-full gap-2">
               <p className="text-header-600 font-semibold hover:text-blue-600 cursor-pointer">
                 Forgot Password?
@@ -100,7 +125,10 @@ const Login: React.FC = () => {
           </form>
           <div className="flex items-center flex-col gap-2">
             <p className="text-xl text-header-400 font-medium">OR</p>
-            <button className="py-2 flex items-center px-10 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold border border-blue-600 rounded-xl transition duration-300 ease-in">
+            <button
+              onClick={handleGoogleApi}
+              className="py-2 flex items-center px-10 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold border border-blue-600 rounded-xl transition duration-300 ease-in"
+            >
               Sign In With Google
             </button>
           </div>
