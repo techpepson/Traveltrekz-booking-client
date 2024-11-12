@@ -1,15 +1,35 @@
-import React, { useState } from 'react'
-import Navbar from '../../components/user/Navbar'
-import Footer from '../../components/user/Footer'
-import Image from '../../assets/user/auth.jpeg'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import Navbar from "../../components/user/Navbar";
+import Footer from "../../components/user/Footer";
+import Image from "../../assets/user/auth.jpeg";
+import { Link } from "react-router-dom";
+import { LoginAuthThunk } from "../../store/thunks/auth.thunkApi";
+import { AppDispatch, RootState } from "../../store/config/store.config";
+import { useSelector, useDispatch } from "react-redux";
+import { LoginBodyTypes } from "../../interface/auth.reducer.interface";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = async (e:React.FormEvent<HTMLButtonElement>) => {
+  //call the useDispatch method
+  const dispatch = useDispatch<AppDispatch>();
+
+  //fetch the loading state from the reducer
+  const { loading } = useSelector(
+    (store: RootState) => store.authReducer.login
+  );
+
+  //handle submit function
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    //login payload
+    const loginPayload: LoginBodyTypes = {
+      userEmail: email,
+      userPassword: password,
+    };
+    dispatch(LoginAuthThunk(loginPayload));
   };
 
   return (
@@ -44,9 +64,9 @@ const Login: React.FC = () => {
             action=""
             className="flex flex-col md:gap-10 gap-4 px-4 w-full md:px-20 "
           >
-            {/* <input type="text" required placeholder='Full Name' className='text-xl outline-none border-b w-full focus:border-b-blue-600'/> */}
             <input
               type="email"
+              name="userEmail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -55,26 +75,27 @@ const Login: React.FC = () => {
             />
             <input
               type="password"
+              name="userPassword"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="Password"
               className="text-xl outline-none border-b w-full focus:border-b-blue-600"
             />
-            {/* <div className='flex items-center gap-2'>
-                        <input type="checkbox" name="" id="" className='w-5 h-5 cursor-pointer' required/>
-                        <p className=''>I have read, understood and agreed to all <span className='text-blue-600 cursor-pointer'>terms</span> and <span className='text-blue-600 cursor-pointer'>condition</span>.</p>
-                    </div> */}
             <div className=" text-white max-sm:mt-2 max-sm:text-sm flex flex-col md:flex-row md:items-center justify-between w-full gap-2">
               <p className="text-header-600 font-semibold hover:text-blue-600 cursor-pointer">
                 Forgot Password?
               </p>
-              <button
-                onClick={handleSubmit}
-                className="bg-blue-600 w-full md:w-fit px-2 py-1 md:px-4 md:py-2 text-lg rounded-2xl font-semibold"
-              >
-                Log In
-              </button>
+              {loading ? (
+                <div className="loading text-blue-500 loading-bars loading-md"></div>
+              ) : (
+                <button
+                  onClick={handleSubmit}
+                  className="bg-blue-600 w-full md:w-fit px-2 py-1 md:px-4 md:py-2 text-lg rounded-2xl font-semibold"
+                >
+                  Log In
+                </button>
+              )}
             </div>
           </form>
           <div className="flex items-center flex-col gap-2">
@@ -98,4 +119,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login
+export default Login;
