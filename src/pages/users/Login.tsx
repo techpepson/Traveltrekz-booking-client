@@ -53,7 +53,7 @@ const Login: React.FC = () => {
             </Link>
           </div>
         </div>
-        <div className="flex items-center max-lg:border max-lg:rounded-2xl max-sm:m-8 max-lg:m-36 max-lg:py-16 max-sm:py-4 max-lg:shadow-lg max-sm:mt-24 w-full justify-center flex-col gap-2 md:gap-10">
+        <div className="flex items-center max-lg:border max-lg:rounded-2xl  max-[340px]:mx-2 max-sm:m-8 max-lg:m-36 max-lg:py-16 max-sm:py-4 max-lg:shadow-lg max-sm:mt-24 w-full justify-center flex-col gap-2 md:gap-10">
           <div className="flex flex-col gap-0 items-center mb-10">
             <h1 className="text-blue-600 text-lg md:text-4xl font-bold">
               TravelTrekz
@@ -71,7 +71,7 @@ const Login: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="Email"
-              className="text-xl outline-none border-b w-full focus:border-b-blue-600"
+              className="text-lg md:text-xl outline-none border-b w-full focus:border-b-blue-600"
             />
             <input
               type="password"
@@ -80,7 +80,7 @@ const Login: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="Password"
-              className="text-xl outline-none border-b w-full focus:border-b-blue-600"
+              className="text-lg md:text-xl outline-none border-b w-full focus:border-b-blue-600"
             />
             <div className=" text-white max-sm:mt-2 max-sm:text-sm flex flex-col md:flex-row md:items-center justify-between w-full gap-2">
               <p className="text-header-600 font-semibold hover:text-blue-600 cursor-pointer">
