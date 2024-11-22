@@ -49,3 +49,11 @@ body{
     scrollbar-width: none;     /* Firefox */
   }
   
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Adjust as needed */
+    background: #f4f4f4; /* Optional background */
+  }
+  
