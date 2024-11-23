@@ -82,7 +82,7 @@ const AddProperty4: React.FC = () => {
                     <Link to="/host/add-property-5" className="bg-blue-600 text-white py-2 px-8 rounded-full">Next</Link>
                     <Link to="/host/add-property-3" className="bg-blue-600 text-white py-2 px-8 rounded-full">Back</Link>
                 </div>
-                <button className="bg-header-200 text-white py-2 px-8 rounded-full">Cancel</button>
+                <button className="bg-header-600 text-white py-2 px-8 rounded-full">Cancel</button>
             </div>
             <Footer />
         </div>
