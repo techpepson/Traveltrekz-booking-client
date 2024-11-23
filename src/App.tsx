@@ -17,6 +17,9 @@ import HomeHost from "./pages/host/HomeHost";
 import AccountHost from "./pages/host/AccountHost";
 import AccountEditHost from "./pages/host/AccountEditHost";
 import PropertiesHost from "./pages/host/PropertiesHost";
+import AddProperty1 from './pages/host/AddProperty1'
+import AddProperty2 from './pages/host/AddProperty2'
+import AddProperty3 from './pages/host/AddProperty3'
 
 const App = () => {
   return (
@@ -48,6 +51,9 @@ const App = () => {
         <Route path="/host/account" element={<AccountHost />} />
         <Route path="/host/account-edit" element={<AccountEditHost />} />
         <Route path="/host/property" element={<PropertiesHost />} />
+        <Route path="/host/add-property-1" element={<AddProperty1 />} />
+        <Route path="/host/add-property-2" element={<AddProperty2 />} />
+        <Route path="/host/add-property-3" element={<AddProperty3 />} />
       </Routes>
     </>
   );
