@@ -20,8 +20,11 @@ import PropertiesHost from "./pages/host/PropertiesHost";
 import AddProperty1 from './pages/host/AddProperty1'
 import AddProperty2 from './pages/host/AddProperty2'
 import AddProperty3 from './pages/host/AddProperty3'
+import AddProperty4 from './pages/host/AddProperty4'
+import AddProperty5 from './pages/host/AddProperty5'
 
-const App = () => {
+
+const App: React.FC = () => {
   return (
     <>
       <ToastContainer
@@ -54,6 +57,8 @@ const App = () => {
         <Route path="/host/add-property-1" element={<AddProperty1 />} />
         <Route path="/host/add-property-2" element={<AddProperty2 />} />
         <Route path="/host/add-property-3" element={<AddProperty3 />} />
+        <Route path="/host/add-property-4" element={<AddProperty4 />} />
+        <Route path="/host/add-property-5" element={<AddProperty5 />} />
       </Routes>
     </>
   );

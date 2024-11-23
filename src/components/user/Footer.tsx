@@ -51,9 +51,8 @@ const Footer: React.FC = () => {
         </div>
       </div>
       <div className="h-0.5 w-full bg-white"></div>
-      <div className="flex py-2 max-sm:text-sm max-sm:flex-col items-center justify-between">
+      <div className="flex py-2 max-sm:text-sm max-sm:flex-col items-center justify-center">
         <p>&copy; 2024 traveltrekz | All Rights Reserved</p>
-        <p className="max-sm:hidden">Developed with love by Gabby Tech</p>
       </div>
     </div>
   );

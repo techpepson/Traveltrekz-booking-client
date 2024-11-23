@@ -9,8 +9,8 @@ const AddProperty2: React.FC = () => {
         { name: "Property Type", path: "/host/add-property-1" },
         { name: "Description", path: "/host/add-property-2" },
         { name: "Upload Documents", path: "/host/add-property-3" },
-        { name: "Amenities", path: "" },
-        { name: "Completed", path: "" },
+        { name: "Amenities", path: "/host/add-property-4" },
+        { name: "Completed", path: "/host/add-property-5" },
       ];
 
 
