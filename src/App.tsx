@@ -13,6 +13,10 @@ import AccountEdit from "./pages/users/AccountEdit";
 import Reservation from "./pages/users/Reservation";
 import Wishlist from "./pages/users/Wishlist";
 import "react-toastify/dist/ReactToastify.css";
+import HomeHost from "./pages/host/HomeHost";
+import AccountHost from "./pages/host/AccountHost";
+import AccountEditHost from "./pages/host/AccountEditHost";
+import PropertiesHost from "./pages/host/PropertiesHost";
 
 const App = () => {
   return (
@@ -40,6 +44,10 @@ const App = () => {
         <Route path="/account-edit" element={<AccountEdit />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/host" element={<HomeHost />} />
+        <Route path="/host/account" element={<AccountHost />} />
+        <Route path="/host/account-edit" element={<AccountEditHost />} />
+        <Route path="/host/property" element={<PropertiesHost />} />
       </Routes>
     </>
   );

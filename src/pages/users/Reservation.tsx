@@ -3,7 +3,7 @@ import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
 import { useLocation } from 'react-router-dom';
 
-const Reservation = () => {
+const Reservation: React.FC = () => {
   const { state } = useLocation();
   const [upcoming, setUpcoming] = useState(state?.reservation ? [state.reservation] : []);
   const [past, setPast] = useState([]);

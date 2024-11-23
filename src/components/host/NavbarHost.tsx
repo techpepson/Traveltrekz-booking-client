@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FaUserCircle } from "react-icons/fa";
-import SigninOption from './SigninOption'
 import { CgMenu } from "react-icons/cg";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link } from 'react-router-dom';
+import SigninOption from '../user/SigninOption';
 
-const Navbar: React.FC = () => {
+const NavbarHost: React.FC  = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   const toggleNavbar = () => {
@@ -43,8 +43,8 @@ const Navbar: React.FC = () => {
             </a>
           </div>
           <ul className="flex items-center gap-2 lg:gap-8">
-            <Link to="/host" className="bg-white hidden lg:block text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition">
-              Become A Host
+            <Link to="/" className="bg-white hidden lg:block text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition">
+              Go To Guest Page
             </Link>
             <div className="dropdown dropdown-end">
               <button
@@ -71,14 +71,14 @@ const Navbar: React.FC = () => {
             </Link>
             <p>Shared Stories</p>
             <p>About Us</p>
-            <Link to="/host" className="bg-white text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition">
-              Become A Host
+            <Link to="/" className="bg-white text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition">
+              Back to guest 
             </Link>
           </div>
         )}
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default NavbarHost
