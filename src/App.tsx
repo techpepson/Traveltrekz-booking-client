@@ -22,6 +22,8 @@ import AddProperty2 from './pages/host/AddProperty2'
 import AddProperty3 from './pages/host/AddProperty3'
 import AddProperty4 from './pages/host/AddProperty4'
 import AddProperty5 from './pages/host/AddProperty5'
+import ReservationHost from "./pages/host/ReservationHost";
+import Transaction from "./pages/host/Transaction";
 
 
 const App: React.FC = () => {
@@ -59,6 +61,8 @@ const App: React.FC = () => {
         <Route path="/host/add-property-3" element={<AddProperty3 />} />
         <Route path="/host/add-property-4" element={<AddProperty4 />} />
         <Route path="/host/add-property-5" element={<AddProperty5 />} />
+        <Route path="/host/reservation" element={<ReservationHost />} />
+        <Route path="/host/transaction" element={<Transaction />} />
       </Routes>
     </>
   );
