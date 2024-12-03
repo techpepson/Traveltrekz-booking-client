@@ -1,6 +1,6 @@
 import React from 'react'
 import NavbarHost from '../../components/host/NavbarHost';
-import AccountImage from '../../components/user/AccountImage';
+import HostAccountImage from '../../components/host/HostAccountImage';
 import Footer from '../../components/user/Footer';
 
 const AccountEditHost: React.FC = () => {
@@ -8,7 +8,7 @@ const AccountEditHost: React.FC = () => {
     <>
       <NavbarHost />
       <div className='flex flex-col md:flex-row p-4 max-lg:mt-24 lg:p-16 gap-8 lg:gap-20 w-full'>
-        <AccountImage />
+        <HostAccountImage />
         <div className="w-full flex flex-col gap-4 text-header-600">
           <div className="flex flex-col gap-0">
             <h1 className="text-2xl font-semibold">Hello, John Doe</h1>

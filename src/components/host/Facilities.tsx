@@ -6,7 +6,7 @@ const Facilities: React.FC = () => {
   const [parkingCount, setParkingCount] = useState(0);
 
   return (
-    <div className="flex items-center gap-16">
+    <div className="flex items-center gap-8 md:gap-16 flex-wrap">
       {/* Bedroom */}
       <div className="flex items-center gap-3">
         <div

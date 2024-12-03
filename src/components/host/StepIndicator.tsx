@@ -8,14 +8,14 @@ interface StepIndicatorProps {
 
 const StepIndicator: React.FC<StepIndicatorProps> = ({ steps, currentStep }) => {
   return (
-    <ul className="steps">
+    <ul className="steps max-md:mt-10">
       {steps.map((step, index) => (
-        <li
+        <Link to={step.path}
           key={index}
           className={`step ${index <= currentStep ? "step-info" : ""}`}
         >
-          <Link to={step.path}>{step.name}</Link>
-        </li>
+          <li className="max-md:hidden">{step.name}</li>
+        </Link>
       ))}
     </ul>
   );

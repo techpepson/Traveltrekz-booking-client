@@ -1,6 +1,6 @@
 import React from "react";
 import NavbarHost from "../../components/host/NavbarHost";
-import AccountImage from "../../components/user/AccountImage";
+import HostAccountImage from "../../components/host/HostAccountImage";
 import Footer from "../../components/user/Footer";
 
 const AccountHost: React.FC = () => {
@@ -18,7 +18,7 @@ const AccountHost: React.FC = () => {
                     <p>0 Reviews</p>
                 </div>
             </div>
-            <AccountImage />
+            <HostAccountImage />
             <div className='w-full max-lg:hidden flex flex-col gap-6'>
                 <div className='flex flex-col gap-0 text-header-600'>
                     <h1 className='text-2xl font-semibold'>Hello, John Doe</h1>

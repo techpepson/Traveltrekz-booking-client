@@ -20,9 +20,9 @@ const AddProperty2: React.FC = () => {
             <div className="p-16 flex items-center justify-center">
                 <StepIndicator steps={steps} currentStep={1} />
             </div>
-            <div className="px-16 flex flex-col gap-8 overflow-hidden">
-                <h1 className="text-4xl font-bold w-[50%] text-header-600">Add a short description of your place</h1>
-                <div className="grid grid-cols-2 gap-10">
+            <div className="md:px-16 px-8 flex flex-col gap-8 overflow-hidden">
+                <h1 className="text-4xl font-bold md:w-[50%] text-header-600">Add a short description of your place</h1>
+                <div className="grid md:grid-cols-2 gap-4 md:gap-10">
                     <div className="bg-header-200 rounded-2xl py-6 px-10">
                         <h1 className="text-xl text-header-600 font-semibold">Rental Unit</h1>
                         <p>A rented place within a multi-unit residential building or complex.</p>
@@ -33,7 +33,7 @@ const AddProperty2: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <form className="p-16 flex flex-col gap-4">
+            <form className="md:p-16 p-8 pt-10 flex flex-col gap-4">
                 <div>
                     <label>Name of the property</label>
                     <input type="text" className="w-full p-1 border border-black/50 rounded-lg" />
@@ -48,10 +48,10 @@ const AddProperty2: React.FC = () => {
                 </div>
                 <div className="flex items-center justify-between py-10">
                     <div className="flex gap-4 items-center">
-                        <Link to="/host/add-property-3" className="bg-blue-600 text-white py-2 px-8 rounded-full">Next</Link>
-                        <Link to="/host/add-property-1" className="bg-blue-600 text-white py-2 px-8 rounded-full">Back</Link>
+                        <Link to="/host/add-property-3" className="bg-blue-600 text-white py-2 px-8 rounded-full max-md:text-sm">Next</Link>
+                        <Link to="/host/add-property-1" className="bg-blue-600 text-white py-2 px-8 rounded-full max-md:text-sm">Back</Link>
                     </div>
-                    <button className="bg-header-600 text-white py-2 px-8 rounded-full">Cancel</button>
+                    <button className="bg-header-600 text-white py-2 px-8 rounded-full max-md:text-sm">Cancel</button>
                 </div>
                 
             </form>

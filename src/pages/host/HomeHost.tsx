@@ -31,15 +31,15 @@ const HomeHost: React.FC = () => {
     <>
       <NavbarHost />
       <HeroHost />
-      <div className="mx-20 py-12">
+      <div className="mx-8 md:mx-20 py-12">
         <h1 className='font-bold text-3xl pt-4 pb-10 w-[350px]'>How <span className='text-blue-600'>Hosting</span> Works With TravelTrekz</h1>
-        <div className='grid grid-cols-4 gap-16'>
+        <div className='grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-16'>
           {
             Features.map((item) => {
               return(
-              <div key={item.id} className='bg-blue-200 bg-opacity-40 p-4 flex flex-col gap-1 items-center rounded-xl'>
+              <div key={item.id} className='bg-blue-200 bg-opacity-40 p-2 md:p-4 flex flex-col gap-1 items-center rounded-xl'>
                 <img src={item.image} alt={item.title} className="w-16 h-16"/>
-                <h1 className='font-bold'>{item.title}</h1>
+                <h1 className='font-bold text-center'>{item.title}</h1>
                 <p className='text-sm px-4 text-center'>{item.description}</p>
               </div>
               )
@@ -47,10 +47,10 @@ const HomeHost: React.FC = () => {
           }
           
         </div>
-        <div className="grid grid-cols-2 gap-32 my-20 justify-between">
-          <div className='flex flex-col gap-12'>
+        <div className="grid md:grid-cols-2 gap-10 md:gap-32 my-20 justify-between">
+          <div className='flex flex-col gap-8 md:gap-12'>
             <h1 className='text-4xl font-bold'>Why Host With Us</h1>
-            <div className='grid grid-cols-2 gap-16'>
+            <div className='grid grid-cols-2 gap-4 md:gap-16'>
               {
                 Hosting.map((item) => {
                   return(

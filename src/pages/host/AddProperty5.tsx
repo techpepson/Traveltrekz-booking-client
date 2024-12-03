@@ -21,8 +21,8 @@ const AddProperty5: React.FC = () => {
             <div className="p-16 flex items-center justify-center">
                 <StepIndicator steps={steps} currentStep={4} />
             </div>
-            <div className='grid grid-cols-2 gap-10'>
-                <div className="px-16 flex flex-col gap-8 overflow-hidden mt-10">
+            <div className='md:grid md:grid-cols-2 md:gap-10 flex flex-col-reverse'>
+                <div className="md:px-16 p-8 flex flex-col gap-8 overflow-hidden md:mt-10">
                     <h1 className='text-4xl font-bold text-header-600'>All Set And Done. Ready To Host Property?</h1>
                     <p>Your property is now live on TravelTrekz. Sit back, relax, and let the bookings roll in. We’ll take care of the rest, from guest communication to secure payments, while you focus on welcoming your guests!</p>
                     <div className='flex flex-col gap-4'>
@@ -30,7 +30,7 @@ const AddProperty5: React.FC = () => {
                             <input type="checkbox" defaultChecked className="checkbox" />
                             <p>Accept all terms and conditions</p>
                         </div>
-                        <div className='bg-blue-600 py-4 px-8 rounded-full text-white w-fit'>Post My Property</div>
+                        <div className='bg-blue-600 py-4 px-8 rounded-full text-white w-fit max-md:text-sm'>Post My Property</div>
                     </div>
                 </div>
                 <img src={Congrats} alt="congratulations" className='w-full h-full' />

@@ -43,10 +43,10 @@ const AddProperty4: React.FC = () => {
             <div className="p-16 flex items-center justify-center">
                 <StepIndicator steps={steps} currentStep={3} />
             </div>
-            <div className="px-16 flex flex-col gap-8 overflow-hidden">
-                <h1 className="text-4xl font-bold text-header-600 w-[45%]">Add amenities available at your place.</h1>
+            <div className="md:px-16 px-8 flex flex-col gap-8 overflow-hidden">
+                <h1 className="text-4xl font-bold text-header-600 md:w-[45%]">Add amenities available at your place.</h1>
                 <div className="flex flex-col gap-4 ">
-                    <div className="grid grid-cols-4 h-[100px] gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 md:h-[100px] gap-4">
                         {
                             Accessories.map(item => {
                                 return (
@@ -60,10 +60,10 @@ const AddProperty4: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="p-16 flex flex-col gap-8 overflow-hidden ">
-                <h1 className="text-4xl font-bold text-header-600 w-[45%]">Add safety available at your place.</h1>
+            <div className="md:p-16 p-8 flex flex-col gap-8 overflow-hidden ">
+                <h1 className="text-4xl font-bold text-header-600 pt-10 md:w-[45%]">Add safety available at your place.</h1>
                 <div className="flex flex-col gap-4 ">
-                    <div className="grid grid-cols-4 h-[100px] gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 md:h-[100px] gap-4">
                         {
                             Safety.map(item => {
                                 return (
@@ -77,12 +77,12 @@ const AddProperty4: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex items-center justify-between px-16 pb-20">
+            <div className="flex items-center justify-between px-4 md:px-16 pb-20">
                 <div className="flex gap-4 items-center">
-                    <Link to="/host/add-property-5" className="bg-blue-600 text-white py-2 px-8 rounded-full">Next</Link>
-                    <Link to="/host/add-property-3" className="bg-blue-600 text-white py-2 px-8 rounded-full">Back</Link>
+                    <Link to="/host/add-property-5" className="bg-blue-600 text-white py-2 px-8 rounded-full max-md:text-sm">Next</Link>
+                    <Link to="/host/add-property-3" className="bg-blue-600 text-white py-2 px-8 rounded-full max-md:text-sm">Back</Link>
                 </div>
-                <button className="bg-header-600 text-white py-2 px-8 rounded-full">Cancel</button>
+                <button className="bg-header-600 text-white py-2 px-8 rounded-full max-md:text-sm">Cancel</button>
             </div>
             <Footer />
         </div>

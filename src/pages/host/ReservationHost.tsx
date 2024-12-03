@@ -23,7 +23,7 @@ const ReservationHost: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className='p-16 flex flex-col gap-6'>
+      <div className='md:p-16 p-8 flex flex-col gap-6'>
         <h1 className='text-header-600 text-3xl font-bold'>Reservation</h1>
         <div role="tablist" className="tabs tabs-bordered">
           <input type="radio" name="my_tabs_1" role="tab" className="tab text-lg font-semibold" aria-label="Upcoming" defaultChecked/>

@@ -27,16 +27,16 @@ const AddProperty1: React.FC = () => {
 
 
     return (
-        <div>
+        <>
             <NavbarHost />
             <div className="p-16 flex items-center justify-center">
                 <StepIndicator steps={steps} currentStep={0} />
             </div>
-            <div className="px-16 flex flex-col gap-8 overflow-hidden">
-                <h1 className="text-4xl font-bold text-header-600 w-[45%]">What kind of place will you host ?</h1>
+            <div className="md:px-16 px-4 flex flex-col gap-4 md:gap-8 overflow-x-hidden">
+                <h1 className="text-4xl font-bold text-header-600 md:w-[45%]">What kind of place will you host ?</h1>
                 <div className="flex flex-col gap-4 ">
                     <p>Please select only one and proceed</p>
-                    <div className="grid grid-cols-4 h-[100px] gap-16">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 m:h-[100px] gap-4 md:gap-16">
                         {
                             HouseTypes.map(item => {
                                 return (
@@ -48,14 +48,14 @@ const AddProperty1: React.FC = () => {
                             })
                         }
                     </div>
-                    <div className="flex items-center justify-between pt-10 pb-32">
-                        <Link to="/host/add-property-2" className="bg-blue-600 text-white py-2 px-8 rounded-full">Next</Link>
-                        <button className="bg-header-600 text-white py-2 px-8 rounded-full">Cancel</button>
-                    </div>
+                <div className="flex items-center justify-between pt-10 pb-32">
+                    <Link to="/host/add-property-2" className="bg-blue-600 text-white max-md:text-sm py-2 px-8 rounded-full">Next</Link>
+                    <button className="bg-header-600 max-md:text-sm text-white py-2 px-8 rounded-full">Cancel</button>
+                </div>
                 </div>
             </div>
             <Footer />
-        </div>
+        </>
     )
 }
 
