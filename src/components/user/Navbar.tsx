@@ -38,12 +38,12 @@ const Navbar: React.FC = () => {
             <a href="/property" className="text-white hover:text-blue-100">
               Find a Property
             </a>
-            <a href="#" className="text-white hover:text-blue-100">
+            <Link to="/stories" className="text-white hover:text-blue-100">
               Share Stories
-            </a>
-            <a href="#" className="text-white hover:text-blue-100">
+            </Link>
+            <Link to="/about" className="text-white hover:text-blue-100">
               About Us
-            </a>
+            </Link>
           </div>
           <ul className="flex items-center gap-2 lg:gap-8">
             <Link to="/host" className="bg-white hidden lg:block text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition">
@@ -72,8 +72,12 @@ const Navbar: React.FC = () => {
             <Link to="/property" onClick={toggleNavbar}>
               <p>Find A Property</p>
             </Link>
-            <p>Shared Stories</p>
-            <p>About Us</p>
+            <Link to="/stories" onClick={toggleNavbar}>
+              <p>Share Stories</p>
+            </Link>
+            <Link to="/about" onClick={toggleNavbar}>
+              <p>About Us</p>
+            </Link>
             <Link to="/host" className="bg-white text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition">
               Become A Host
             </Link>

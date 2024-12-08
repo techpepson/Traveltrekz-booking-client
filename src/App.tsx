@@ -15,6 +15,8 @@ import Account from "./pages/users/Account";
 import AccountEdit from "./pages/users/AccountEdit";
 import Reservation from "./pages/users/Reservation";
 import Wishlist from "./pages/users/Wishlist";
+import SharedStories from "./pages/users/SharedStories";
+import AboutUs from "./pages/users/AboutUs";
 
 // Host Pages
 import HomeHost from "./pages/host/HomeHost";
@@ -66,6 +68,8 @@ const App: React.FC = () => {
           <Route path="/account-edit" element={<AccountEdit />} />
           <Route path="/reservation" element={<Reservation />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/stories" element={<SharedStories />} />
+          <Route path="/about" element={<AboutUs />} />
 
           {/* Host Routes */}
           <Route path="/host" element={<HomeHost />} />
