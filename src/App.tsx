@@ -2,6 +2,8 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from './context/AuthContext';
+import { WishlistProvider } from './context/WishlistContext';
 
 // User Pages
 import Home from "./pages/users/Home";
@@ -34,52 +36,54 @@ import VerificationRouter from './pages/verification/VerificationRouter';
 
 const App: React.FC = () => {
   return (
-    <>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
-      
-      <Routes>
-        {/* Authentication Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/verification" element={<VerificationRouter />} />
+    <AuthProvider>
+      <WishlistProvider>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Bounce}
+        />
+        
+        <Routes>
+          {/* Authentication Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/verification" element={<VerificationRouter />} />
 
-        {/* User Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/property" element={<Properties />} />
-        <Route path="/property/:id" element={<PropertyDetails />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/account-edit" element={<AccountEdit />} />
-        <Route path="/reservation" element={<Reservation />} />
-        <Route path="/wishlist" element={<Wishlist />} />
+          {/* User Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/property" element={<Properties />} />
+          <Route path="/property/:id" element={<PropertyDetails />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/account-edit" element={<AccountEdit />} />
+          <Route path="/reservation" element={<Reservation />} />
+          <Route path="/wishlist" element={<Wishlist />} />
 
-        {/* Host Routes */}
-        <Route path="/host" element={<HomeHost />} />
-        <Route path="/host/account" element={<AccountHost />} />
-        <Route path="/host/account-edit" element={<AccountEditHost />} />
-        <Route path="/host/property" element={<PropertiesHost />} />
-        <Route path="/host/reservation" element={<ReservationHost />} />
-        <Route path="/host/transaction" element={<Transaction />} />
+          {/* Host Routes */}
+          <Route path="/host" element={<HomeHost />} />
+          <Route path="/host/account" element={<AccountHost />} />
+          <Route path="/host/account-edit" element={<AccountEditHost />} />
+          <Route path="/host/property" element={<PropertiesHost />} />
+          <Route path="/host/reservation" element={<ReservationHost />} />
+          <Route path="/host/transaction" element={<Transaction />} />
 
-        {/* Property Management Routes */}
-        <Route path="/host/add-property-1" element={<AddProperty1 />} />
-        <Route path="/host/add-property-2" element={<AddProperty2 />} />
-        <Route path="/host/add-property-3" element={<AddProperty3 />} />
-        <Route path="/host/add-property-4" element={<AddProperty4 />} />
-        <Route path="/host/add-property-5" element={<AddProperty5 />} />
-      </Routes>
-    </>
+          {/* Property Management Routes */}
+          <Route path="/host/add-property-1" element={<AddProperty1 />} />
+          <Route path="/host/add-property-2" element={<AddProperty2 />} />
+          <Route path="/host/add-property-3" element={<AddProperty3 />} />
+          <Route path="/host/add-property-4" element={<AddProperty4 />} />
+          <Route path="/host/add-property-5" element={<AddProperty5 />} />
+        </Routes>
+      </WishlistProvider>
+    </AuthProvider>
   );
 };
 

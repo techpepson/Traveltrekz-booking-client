@@ -4,6 +4,10 @@ import { IoBedOutline } from "react-icons/io5";
 import { LuBath } from "react-icons/lu";
 import { MdFavoriteBorder, MdFavorite, MdPets } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { useWishlist } from "../../context/WishlistContext";
+import { toast } from "react-toastify";
+
 interface PropertyCardProps {
   images: string[];
   name: string;
@@ -21,15 +25,25 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   position,
   id,
 }) => {
-  const [favorites, setFavorites] = useState({});
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
-  const toggleFavorite = (id: string | number) => {
-    setFavorites((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    if (!isAuthenticated) {
+      toast.error('Please log in to add properties to your wishlist');
+      return;
+    }
+
+    const property = { id, images, name, location, range };
+    if (isInWishlist(id)) {
+      removeFromWishlist(id);
+    } else {
+      addToWishlist(property);
+    }
   };
 
   const borderRadiusClass =
@@ -41,7 +55,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   const paddingClass = position === "left" ? "px-16" : "";
 
   const handleCardClick = () => {
-    navigate(`/property/${id}`);
+    navigate(`/property/${id.toString()}`);
   };
 
   const nextImage = () => {
@@ -86,19 +100,12 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
           className={`absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 opacity-100 hover:opacity-0 ${borderRadiusClass}`}
         ></div>
         <div
-          className={`absolute top-2 right-2 cursor-pointer text-3xl text-blue-400 ${
-            favorites[id] ? "text-blue-400" : ""
-          } p-2 rounded-full`}
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleFavorite(id);
-          }}
+          className={`absolute top-2 right-2 cursor-pointer text-3xl ${
+            isInWishlist(id) ? "text-red-500" : "text-white"
+          } p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors`}
+          onClick={handleFavoriteClick}
         >
-          {favorites[id] ? (
-            <MdFavorite />
-          ) : (
-            <MdFavoriteBorder className="text-white" />
-          )}
+          {isInWishlist(id) ? <MdFavorite /> : <MdFavoriteBorder />}
         </div>
       </div>
       <div className="p-4" onClick={handleCardClick}>

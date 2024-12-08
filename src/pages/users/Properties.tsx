@@ -19,28 +19,30 @@ const Properties: React.FC = () => {
       <Navbar />
       <div className="mx-auto max-sm:mt-10 px-4 md:px-16 pt-8 pb-16">
         <div className="flex flex-col gap-2 md:flex-row md:items-center justify-between py-2 md:py-8">
-          <ul className="flex items-center gap-4 md:gap-8 font-semibold">
-            <button className="flex items-center md:gap-2 focus:underline  text-header-600 focus:text-blue-600 cursor-pointer">
-              <GoDotFill />
-              Apartment
-            </button>
-            <button className="flex items-center md:gap-2 focus:underline  text-header-600 focus:text-blue-600 cursor-pointer">
-              <GoDotFill />
-              Houses
-            </button>
-            <button className="flex items-center md:gap-2 focus:underline  text-header-600 focus:text-blue-600 cursor-pointer">
-              <GoDotFill />
-              Villas
-            </button>
-            <button className="flex items-center md:gap-2 focus:underline  text-header-600 focus:text-blue-600 cursor-pointer">
-              <GoDotFill />
-              Homestays
-            </button>
-            <button className="flex items-center md:gap-2 focus:underline  text-header-600 focus:text-blue-600 cursor-pointer">
-              <GoDotFill />
-              Villas
-            </button>
-          </ul>
+          <div className="overflow-x-auto scrollbar-hide">
+            <ul className="flex items-center gap-8 font-semibold whitespace-nowrap min-w-max">
+              <button className="flex items-center md:gap-2 focus:underline text-header-600 focus:text-blue-600 cursor-pointer">
+                <GoDotFill />
+                Apartment
+              </button>
+              <button className="flex items-center md:gap-2 focus:underline text-header-600 focus:text-blue-600 cursor-pointer">
+                <GoDotFill />
+                Houses
+              </button>
+              <button className="flex items-center md:gap-2 focus:underline text-header-600 focus:text-blue-600 cursor-pointer">
+                <GoDotFill />
+                Villas
+              </button>
+              <button className="flex items-center md:gap-2 focus:underline text-header-600 focus:text-blue-600 cursor-pointer">
+                <GoDotFill />
+                Homestays
+              </button>
+              <button className="flex items-center md:gap-2 focus:underline text-header-600 focus:text-blue-600 cursor-pointer">
+                <GoDotFill />
+                Villas
+              </button>
+            </ul>
+          </div>
           <div className="py-1 md:py-2 px-2 md:px-4 flex items-center border rounded-3xl gap-1 w-fit cursor-pointer max-sm:mb-2">
             <img src={Filter} alt="filter" className="w-6" />
             <p>Filter</p>

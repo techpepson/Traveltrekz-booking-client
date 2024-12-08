@@ -5,9 +5,12 @@ import SigninOption from './SigninOption'
 import { CgMenu } from "react-icons/cg";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import SignedinOption from './SignedinOption';
 
 const Navbar: React.FC = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   const toggleNavbar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
@@ -59,7 +62,7 @@ const Navbar: React.FC = () => {
                 tabIndex={0}
                 className="dropdown-content menu rounded-box z-50 w-52 shadow"
               >
-                <SigninOption />
+                {isAuthenticated ? <SignedinOption /> : <SigninOption />}
               </ul>
             </div>
           </ul>
