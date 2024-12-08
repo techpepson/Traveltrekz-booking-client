@@ -161,23 +161,23 @@ const Register = () => {
                 <span className="text-blue-600 cursor-pointer">condition</span>.
               </p>
             </div>
-            <div className=" text-white flex items-center justify-end w-full">
+            <div className="text-white flex items-center justify-center w-full">
               {loading ? (
                 <button className="text-lg text-blue-500">
                   <div className="loading loading-bars loading-lg"></div>
                 </button>
               ) : (
-                <div className="flex flex-col relative">
+                <div className="flex flex-col items-center relative">
                   <button
                     disabled={!isAgreementChecked}
                     onClick={handleSubmit}
-                    className="bg-blue-600 disabled:cursor-not-allowed disabled:opacity-45 w-full md:w-fit px-2 py-1 md:px-4 md:py-2 text-lg  rounded-2xl font-semibold"
+                    className="bg-blue-600 disabled:cursor-not-allowed disabled:opacity-45 w-full px-4 py-2 text-lg rounded-2xl font-semibold hover:bg-white hover:border-blue-600 hover:border hover:text-blue-600 transition duration-300 ease-in"
                   >
                     Register
                   </button>
                   {!isAgreementChecked ? (
-                    <div className="mt-5">
-                      <aside className="text-red-500">
+                    <div className="mt-2">
+                      <aside className="text-red-500 text-sm">
                         Agree to terms and conditions to register!
                       </aside>
                     </div>

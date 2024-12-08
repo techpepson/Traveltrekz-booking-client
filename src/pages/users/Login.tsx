@@ -116,7 +116,7 @@ const Login: React.FC = () => {
               ) : (
                 <button
                   onClick={handleSubmit}
-                  className="bg-blue-600 w-full md:w-fit px-2 py-1 md:px-4 md:py-2 text-lg rounded-2xl font-semibold"
+                  className="bg-blue-600 w-full md:w-fit px-2 py-1 md:px-4 md:py-2 text-lg rounded-2xl font-semibold hover:bg-white hover:border-blue-600 hover:border hover:text-blue-600 transition duration-300 ease-in"
                 >
                   Log In
                 </button>
