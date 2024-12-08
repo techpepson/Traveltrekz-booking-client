@@ -17,6 +17,7 @@ import Reservation from "./pages/users/Reservation";
 import Wishlist from "./pages/users/Wishlist";
 import SharedStories from "./pages/users/SharedStories";
 import AboutUs from "./pages/users/AboutUs";
+import HelpCenter from "./pages/users/HelpCenter";
 
 // Host Pages
 import HomeHost from "./pages/host/HomeHost";
@@ -70,6 +71,7 @@ const App: React.FC = () => {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/stories" element={<SharedStories />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/help" element={<HelpCenter />} />
 
           {/* Host Routes */}
           <Route path="/host" element={<HomeHost />} />

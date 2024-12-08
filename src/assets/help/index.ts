@@ -1,0 +1,1 @@
+export { default as HelpHero } from './help-hero.png'; 

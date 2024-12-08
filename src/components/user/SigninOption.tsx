@@ -24,7 +24,7 @@ const SigninOption: React.FC = () => {
           <p>Login</p>
         </Link>
         <Link
-          to="#"
+          to="/help"
           className="flex items-center gap-2 cursor-pointer py-2 px-3 hover:bg-header-200 hover:rounded-md hover:"
         >
           <img src={Help} alt="" />
