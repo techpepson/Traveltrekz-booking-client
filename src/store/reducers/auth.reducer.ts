@@ -4,9 +4,7 @@ import { RegisterAuthThunk } from "../thunks/auth.thunkApi";
 
 //set initialState for the auth functionality
 const initialState: RegisterAuthReducerTypes = {
-  userFirstName: "",
-  userLastName: "",
-  userMiddleName: "",
+  userName: "",
   userEmail: "",
   userPassword: "",
   loading: false,
@@ -18,23 +16,11 @@ export const authReducer = createSlice({
   name: "auth/slice",
   initialState,
   reducers: {
-    updateUserFirstName: (
+    updateUserName: (
       state: RegisterAuthReducerTypes,
       action: PayloadAction<string>
     ) => {
-      state.userFirstName = action.payload;
-    },
-    updateUserLastName: (
-      state: RegisterAuthReducerTypes,
-      action: PayloadAction<string>
-    ) => {
-      state.userLastName = action.payload;
-    },
-    updateUserMiddleName: (
-      state: RegisterAuthReducerTypes,
-      action: PayloadAction<string>
-    ) => {
-      state.userMiddleName = action.payload;
+      state.userName = action.payload;
     },
     updateUserEmail: (
       state: RegisterAuthReducerTypes,
@@ -70,10 +56,8 @@ export const authReducer = createSlice({
 });
 
 export const {
-  updateUserFirstName,
+  updateUserName,
   updateUserEmail,
-  updateUserLastName,
-  updateUserMiddleName,
   updateUserPassword,
 } = authReducer.actions;
 

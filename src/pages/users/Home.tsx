@@ -15,6 +15,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 
 const Home: React.FC = () => {
   const [displayCount, _] = useState(6);
+  
   const latestScrollRef = useRef(null);
   const nearbyScrollRef = useRef(null);
   const topRatedScrollRef = useRef(null);

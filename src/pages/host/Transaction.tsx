@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 
 const Transaction: React.FC = () => {
   
-
   return (
     <>
       <Navbar />
