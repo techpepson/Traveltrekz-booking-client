@@ -1,10 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { authReducers, errorReducers } from "../combineReducers/reducers";
-
+import {
+  accountDetailsReducers,
+  authReducers,
+  errorReducers,
+  propertiesReducers,
+} from "../combineReducers/reducers";
+import {} from "../reducers/account-details";
 export const store = configureStore({
   reducer: {
     authReducer: authReducers,
     errorReducer: errorReducers,
+    accountDetails: accountDetailsReducers,
+    properties: propertiesReducers,
   },
 });
 

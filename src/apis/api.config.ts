@@ -3,9 +3,13 @@ import axios from "axios";
 // API base URL from environment variable
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
+const developmentBaseUrl =
+  import.meta.env.VITE_DEVELOPMENT_API_BASE_URL || "http://localhost:3000/api";
+
 // Axios instance for making API requests
 export const api = axios.create({
-  baseURL: baseUrl,
+  baseURL: developmentBaseUrl,
+  withCredentials: true,
 });
 
 // Function to set the Authorization header for authenticated requests
