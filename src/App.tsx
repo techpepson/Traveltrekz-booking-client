@@ -1,9 +1,10 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { WishlistProvider } from './context/WishlistContext';
+import { toast } from 'react-toastify';
 
 // User Pages
 import Home from "./pages/users/Home";
@@ -37,6 +38,20 @@ import AddProperty5 from './pages/host/AddProperty5';
 // Verification Pages
 import VerificationRouter from './pages/verification/VerificationRouter';
 
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      toast.error('Please log in to access this page');
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
+
+  return isAuthenticated ? <>{children}</> : null;
+};
+
 const App: React.FC = () => {
   return (
     <AuthProvider>
@@ -56,37 +71,50 @@ const App: React.FC = () => {
         />
         
         <Routes>
-          {/* Authentication Routes */}
+          {/* Public Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/verification" element={<VerificationRouter />} />
-
-          {/* User Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/property" element={<Properties />} />
           <Route path="/property/:id" element={<PropertyDetails />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/account-edit" element={<AccountEdit />} />
-          <Route path="/reservation" element={<Reservation />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/stories" element={<SharedStories />} />
           <Route path="/about" element={<AboutUs />} />
-          <Route path="/help" element={<HelpCenter />} />
 
-          {/* Host Routes */}
-          <Route path="/host" element={<HomeHost />} />
-          <Route path="/host/account" element={<AccountHost />} />
-          <Route path="/host/account-edit" element={<AccountEditHost />} />
-          <Route path="/host/property" element={<PropertiesHost />} />
-          <Route path="/host/reservation" element={<ReservationHost />} />
-          <Route path="/host/transaction" element={<Transaction />} />
-
-          {/* Property Management Routes */}
-          <Route path="/host/add-property-1" element={<AddProperty1 />} />
-          <Route path="/host/add-property-2" element={<AddProperty2 />} />
-          <Route path="/host/add-property-3" element={<AddProperty3 />} />
-          <Route path="/host/add-property-4" element={<AddProperty4 />} />
-          <Route path="/host/add-property-5" element={<AddProperty5 />} />
+          {/* Protected Routes */}
+          <Route path="/verification" element={
+            <ProtectedRoute>
+              <VerificationRouter />
+            </ProtectedRoute>
+          } />
+          <Route path="/account" element={
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+          } />
+          <Route path="/account-edit" element={
+            <ProtectedRoute>
+              <AccountEdit />
+            </ProtectedRoute>
+          } />
+          <Route path="/reservation" element={
+            <ProtectedRoute>
+              <Reservation />
+            </ProtectedRoute>
+          } />
+          <Route path="/wishlist" element={
+            <ProtectedRoute>
+              <Wishlist />
+            </ProtectedRoute>
+          } />
+          <Route path="/stories" element={
+            <ProtectedRoute>
+              <SharedStories />
+            </ProtectedRoute>
+          } />
+          <Route path="/host/*" element={
+            <ProtectedRoute>
+              <HostRoutes />
+            </ProtectedRoute>
+          } />
         </Routes>
       </WishlistProvider>
     </AuthProvider>
