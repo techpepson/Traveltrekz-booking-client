@@ -3,7 +3,10 @@ import NavbarHost from "../../components/host/NavbarHost";
 import Footer from "../../components/user/Footer";
 import StepIndicator from "../../components/host/StepIndicator";
 import Facilities from "../../components/host/Facilities";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePropertyImages } from "../../store/reducers/addProperties.reducer";
+import { AppDispatch, RootState } from "../../store/config/store.config";
 
 const AddProperty3: React.FC = () => {
   const steps = [
@@ -14,54 +17,62 @@ const AddProperty3: React.FC = () => {
     { name: "Completed", path: "/host/add-property-5" },
   ];
 
-  const [images, setImages] = useState<File[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
+
+  // Local state for images and modal
+  const [images, setImages] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (!files) return;
+  const { propertyImages } = useSelector(
+    (store: RootState) => store.properties.addProperty
+  );
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
 
-    const uploadedImages = Array.from(files);
+    if (files && files.length > 0) {
+      const newImages: string[] = [];
+      const fileReaders: Promise<string>[] = [];
 
-    // Prevent adding more than 5 images
-    if (images.length + uploadedImages.length > 5) {
-      alert("You can only upload up to 5 images.");
-      return;
+      // Process files into base64 strings
+      Array.from(files).forEach((file) => {
+        const reader = new FileReader();
+        const fileReaderPromise = new Promise<string>((resolve) => {
+          reader.onloadend = () => {
+            const base64String = reader.result as string;
+            resolve(base64String);
+          };
+          reader.readAsDataURL(file);
+        });
+
+        fileReaders.push(fileReaderPromise);
+      });
+
+      // Wait for all FileReaders to complete
+      Promise.all(fileReaders).then((base64Strings) => {
+        base64Strings.forEach((base64String) => {
+          if (!images.includes(base64String)) {
+            newImages.push(base64String);
+          }
+        });
+
+        // Update state and dispatch action
+        const updatedImages = [...images, ...newImages];
+        setImages(updatedImages);
+        dispatch(updatePropertyImages(updatedImages));
+        console.log(updatedImages); // Verify the updated state
+      });
     }
-
-    // Filter only image files
-    const validImages = uploadedImages.filter((file) =>
-      file.type.startsWith("image/")
-    );
-
-    if (validImages.length < uploadedImages.length) {
-      alert("Only image files are allowed.");
-    }
-
-    setImages((prevImages) => [...prevImages, ...validImages]);
   };
 
   const removeImage = (index: number) => {
-    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    const updatedImages = images.filter((_, i) => i !== index);
+    setImages(updatedImages);
+    dispatch(updatePropertyImages(updatedImages));
   };
 
-  const handlePdfUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file && file.type !== "application/pdf") {
-      alert("Only PDF documents are allowed.");
-      return;
-    }
-    setPdfFile(file || null);
-  };
+  const openModal = (image: string) => setSelectedImage(image);
 
-  const openModal = (image: string) => {
-    setSelectedImage(image);
-  };
-
-  const closeModal = () => {
-    setSelectedImage(null);
-  };
+  const closeModal = () => setSelectedImage(null);
 
   return (
     <div>
@@ -75,6 +86,8 @@ const AddProperty3: React.FC = () => {
         </h1>
         <Facilities />
       </div>
+
+      {/* Image Upload Section */}
       <div className="md:px-16 px-8 flex flex-col gap-4 md:gap-8 overflow-hidden py-16">
         <h1 className="text-2xl md:text-4xl font-bold md:w-[50%] text-header-600">
           Upload Images
@@ -90,10 +103,10 @@ const AddProperty3: React.FC = () => {
           {images.map((image, index) => (
             <div key={index} className="relative">
               <img
-                src={URL.createObjectURL(image)}
+                src={image}
                 alt={`Uploaded ${index}`}
                 className="w-32 h-32 object-cover rounded-md cursor-pointer"
-                onClick={() => openModal(URL.createObjectURL(image))}
+                onClick={() => openModal(image)}
               />
               <button
                 onClick={() => removeImage(index)}
@@ -105,22 +118,6 @@ const AddProperty3: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="md:px-16 px-8 flex flex-col gap-4 md:gap-8 overflow-hidden pb-16">
-        <h1 className="text-2xl md:text-4xl font-bold md:w-[50%] text-header-600">
-          Upload Legal Document
-        </h1>
-        <input
-          type="file"
-          className="file-input w-full max-w-xs border rounded-2xl"
-          accept="application/pdf"
-          onChange={handlePdfUpload}
-        />
-        {pdfFile && (
-          <div className="mt-4">
-            <p className="text-green-600 font-bold">{pdfFile.name}</p>
-          </div>
-        )}
-      </div>
 
       {/* Modal */}
       {selectedImage && (
@@ -130,7 +127,7 @@ const AddProperty3: React.FC = () => {
         >
           <div
             className="relative bg-white rounded-lg p-4"
-            onClick={(e) => e.stopPropagation()} // Prevent closing modal when clicking inside
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center"
@@ -147,13 +144,26 @@ const AddProperty3: React.FC = () => {
         </div>
       )}
 
-        <div className="flex items-center justify-between px-4 md:px-16 pb-20">
-            <div className="flex gap-4 items-center">
-                <Link to="/host/add-property-4" className="bg-blue-600 text-white py-2 px-8 rounded-full max-md:text-sm">Next</Link>
-                <Link to="/host/add-property-2" className="bg-blue-600 text-white py-2 px-8 rounded-full max-md:text-sm">Back</Link>
-            </div>
-            <button className="bg-header-600 text-white py-2 px-8 rounded-full max-md:text-sm">Cancel</button>
+      {/* Navigation Buttons */}
+      <div className="flex items-center justify-between px-4 md:px-16 pb-20">
+        <div className="flex gap-4 items-center">
+          <Link
+            to="/host/add-property-4"
+            className="bg-blue-600 text-white py-2 px-8 rounded-full max-md:text-sm"
+          >
+            Next
+          </Link>
+          <Link
+            to="/host/add-property-2"
+            className="bg-blue-600 text-white py-2 px-8 rounded-full max-md:text-sm"
+          >
+            Back
+          </Link>
         </div>
+        <button className="bg-header-600 text-white py-2 px-8 rounded-full max-md:text-sm">
+          Cancel
+        </button>
+      </div>
       <Footer />
     </div>
   );

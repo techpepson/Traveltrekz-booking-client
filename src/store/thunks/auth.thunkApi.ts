@@ -22,7 +22,7 @@ export const RegisterAuthThunk = createAsyncThunk(
       const response = await registerApi(data);
 
       // Check if the status is 201 (success)
-      if (response?.status === 201) {
+      if (response?.status === 200) {
         setTimeout(() => {
           window.location.href = import.meta.env.VITE_LOGIN_URL;
         }, 5000);
@@ -91,12 +91,18 @@ export const LoginAuthThunk = createAsyncThunk(
             window.location.href = import.meta.env.VITE_USER_DETAILS_PAGE;
           }, 5000);
         } else {
-          if (response.data.userType === "host") {
+          if (
+            response.data.userType === "host" &&
+            response.data.userStatus === "approved"
+          ) {
             setTimeout(() => {
               window.location.href = import.meta.env.VITE_HOST_HOMEPAGE;
             }, 5000);
           }
-          if (response.data.userType === "guest") {
+          if (
+            response.data.userType === "guest" &&
+            response.data.userStatus === "approved"
+          ) {
             setTimeout(() => {
               window.location.href = import.meta.env.VITE_GUEST_HOMEPAGE;
             }, 5000);
