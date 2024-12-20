@@ -9,7 +9,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { RegisterAuthThunk } from "../../store/thunks/auth.thunkApi";
 import {
   updateUserEmail,
-  updateUserName,
+  updateUserFirstName,
+  updateLastName,
+  updateMiddleName,
   updateUserPassword,
 } from "../../store/reducers/auth.reducer";
 import { RegisterBodyTypes } from "../../interface/auth.reducer.interface";
@@ -21,7 +23,9 @@ const Register = () => {
 
   //get the initialStates for the auth reducer using the useSelector
   const {
-    userName,
+    userFirstName,
+    userLastName,
+    userMiddleName,
     userEmail,
     userPassword,
     loading,
@@ -40,8 +44,14 @@ const Register = () => {
     e.preventDefault();
     const { name, value } = e.target;
     switch (name) {
-      case "usertName":
-        dispatch(updateUserName(value));
+      case "userFirstName":
+        dispatch(updateUserFirstName(value));
+        break;
+      case "userLastName":
+        dispatch(updateLastName(value));
+        break;
+      case "userMiddleName":
+        dispatch(updateMiddleName(value));
         break;
       case "userEmail":
         dispatch(updateUserEmail(value));
@@ -64,7 +74,9 @@ const Register = () => {
 
     //define the body of the post request
     const registerPayload: RegisterBodyTypes = {
-      userName: userName,
+      userFirstName: userFirstName,
+      userLastName: userFirstName,
+      userMiddleName: userFirstName,
       userEmail: userEmail,
       userPassword: userPassword,
     };
@@ -112,11 +124,29 @@ const Register = () => {
           >
             <input
               type="text"
-              name="userName"
-              value={userName}
+              name="userFirstName"
+              value={userFirstName}
               onChange={handleOnChange}
               required
-              placeholder="User Name"
+              placeholder="First name"
+              className="text-lg md:text-xl outline-none border-b w-full focus:border-b-blue-600"
+            />
+            <input
+              type="text"
+              name="userLastName"
+              value={userLastName}
+              onChange={handleOnChange}
+              required
+              placeholder="Last name"
+              className="text-lg md:text-xl outline-none border-b w-full focus:border-b-blue-600"
+            />
+            <input
+              type="text"
+              name="userMiddleName"
+              value={userMiddleName}
+              onChange={handleOnChange}
+              required
+              placeholder="Middle name"
               className="text-lg md:text-xl outline-none border-b w-full focus:border-b-blue-600"
             />
             <input

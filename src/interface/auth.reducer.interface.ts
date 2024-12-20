@@ -1,7 +1,9 @@
 //interface definition for the auth reducer
 
 export interface RegisterAuthReducerTypes {
-  userName: string;
+  userFirstName: string;
+  userLastName: string;
+  userMiddleName: string;
   userEmail: string;
   userPassword: string;
   loading: boolean;
@@ -18,7 +20,9 @@ export interface LoginAuthReducerTypes {
 }
 
 export interface RegisterBodyTypes {
-  userName: string;
+  userFirstName: string;
+  userLastName: string;
+  userMiddleName: string;
   userEmail: string;
   userPassword: string;
 }
