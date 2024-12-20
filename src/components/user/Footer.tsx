@@ -1,6 +1,7 @@
 import React from "react";
 import Playstore from "../../assets/user/playstore.png";
 import Appstore from "../../assets/user/appstore.png";
+import {Link} from 'react-router-dom'
 
 const Footer: React.FC = () => {
   return (
@@ -23,19 +24,19 @@ const Footer: React.FC = () => {
           <div className="flex flex-col gap-2 md:gap-4">
             <h1 className="md:text-xl font-semibold">Company</h1>
             <ul className="max-sm:text-sm">
-              <li>About Us</li>
+              <Link to='/about'><li>About Us</li></Link>
               <li>Legal Information</li>
               <li>Contact Us</li>
-              <li>Blogs</li>
+              <Link to='/'><li>Blogs</li></Link>
             </ul>
           </div>
           <div className="flex flex-col gap-2 md:gap-4">
             <h1 className="md:text-xl font-semibold">Help Center</h1>
             <ul className="max-sm:text-sm">
-              <li>Find a Property</li>
-              <li>How to Host ?</li>
-              <li>Why Us ?</li>
-              <li>FAQs</li>
+              <Link to='/property'><li>Find a Property</li></Link>
+              <Link to='/host'><li>How to Host ?</li></Link>
+              <Link to='/about'><li>Why Us ?</li></Link>
+              <Link to='/help'><li>FAQs</li></Link>
               <li>Rental Guides</li>
             </ul>
           </div>
@@ -47,6 +48,9 @@ const Footer: React.FC = () => {
               <li>Location: </li>
             </ul>
             {/* icons */}
+            <div>
+              
+            </div>
           </div>
         </div>
       </div>

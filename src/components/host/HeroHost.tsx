@@ -1,5 +1,6 @@
 import React from 'react'
 import Hero from "../../assets/host/herohost.png"
+import { Link } from 'react-router-dom';
 
 const HeroHost: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const HeroHost: React.FC = () => {
             <h1 className='text-4xl lg:text-5xl font-bold'>Try Hosting With Us</h1>
             <p className="md:text-lg">Become a TravelTrekz host and turn your property into a thriving rental. Start earning today with our simple, stress-free process.</p>
         </div>
-        <button className='bg-blue-600 py-2 px-4 rounded-full w-fit'>Let's Get Started</button>
+        <Link to='/register' className='bg-blue-600 py-2 px-4 rounded-full w-fit hover:scale-105 transition ease-linear duration-300 hover:border-2 hover:border-blue-600 hover:text-blue-600 hover:bg-white hover:font-semibold'>Let's Get Started</Link>
       </div>
     </div>
   );
