@@ -2,22 +2,17 @@ import React, { useState } from "react";
 import Navbar from "../../components/user/Navbar";
 import Footer from "../../components/user/Footer";
 import Image from "../../assets/user/auth.jpeg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LoginAuthThunk } from "../../store/thunks/auth.thunkApi";
 import { AppDispatch, RootState } from "../../store/config/store.config";
 import { useSelector, useDispatch } from "react-redux";
 import { LoginBodyTypes } from "../../interface/auth.reducer.interface";
 import { FaLock, FaUnlock } from "react-icons/fa";
-import { useAuth } from "../../context/AuthContext";
-import { toast } from "react-hot-toast";
-import { loginAPI } from "../../api/auth.api";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-  const { login } = useAuth();
-  const navigate = useNavigate();
 
   //call the useDispatch method
   const dispatch = useDispatch<AppDispatch>();
@@ -49,18 +44,6 @@ const Login: React.FC = () => {
     e.preventDefault();
 
     window.location.href = "https://traveltrekz.onrender.com/api/auth/google";
-  };
-
-  const handleLogin = async (credentials: LoginCredentials) => {
-    try {
-      const response = await loginAPI(credentials); // Your API call
-      if (response.token) {
-        login(response.token);
-        navigate('/');
-      }
-    } catch (error) {
-      toast.error('Login failed. Please try again.');
-    }
   };
 
   return (
