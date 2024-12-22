@@ -216,7 +216,11 @@ const PropertyDetails: React.FC = () => {
             <p className='max-sm:text-sm'>{property.description}</p>
           </div>
           <div className='lg:hidden pt-4'>
-            <BookingCard amount={property.amount} handleReserve={handleReserve} />
+            <BookingCard 
+              propertyId={property.id}
+              propertyName={property.title}
+              pricePerNight={property?.pricePerNight}
+            />
           </div>
           <div className="flex flex-col gap-2 mt-8">
             <h1 className="text-xl md:text-3xl text-header-600 font-bold">Offered Amenities</h1>
@@ -261,7 +265,11 @@ const PropertyDetails: React.FC = () => {
           </div>
         </div>
         <div className='max-lg:hidden w-full'>
-          <BookingCard amount={property.amount} handleReserve={handleReserve} />
+          <BookingCard 
+            propertyId={property.id}
+            propertyName={property.title}
+            pricePerNight={property?.pricePerNight}
+          />
         </div>
       </div>
       <Newsletter />

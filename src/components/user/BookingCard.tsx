@@ -1,16 +1,44 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import Enquiry from '../../assets/inquiry.svg'
 import Phone from '../../assets/call.svg'
+import { useAuth } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 
 interface BookingCardProps {
-  amount: string;
-  handleReserve: () => void;
+  propertyId: string;
+  propertyName: string;
+  pricePerNight: number;
 }
 
-const BookingCard: React.FC<BookingCardProps> = ({ amount, handleReserve }) => {
+const BookingCard: React.FC<BookingCardProps> = ({ propertyId, propertyName, pricePerNight }) => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  const handleReserve = () => {
+    if (!isAuthenticated) {
+      toast.error('Please login to make a booking');
+      navigate('/login');
+      return;
+    }
+
+    if (!propertyId || !propertyName || !pricePerNight) {
+      toast.error('Invalid property details');
+      return;
+    }
+
+    navigate('/booking', {
+      state: {
+        propertyId,
+        propertyName,
+        pricePerNight
+      }
+    });
+  };
+
   return (
     <div className="shadow-2xl h-fit w-full p-6 flex justify-center rounded-lg flex-col ">
-      <h1 className="text-2xl text-header-600 font-bold py-4">${amount}</h1>
+      <h1 className="text-2xl text-header-600 font-bold py-4">${pricePerNight}</h1>
       <div className="h-0.5 w-full bg-header-200"></div>
       <div className="pt-4 text-header-400 font-medium">
         <p>Short period</p>
@@ -37,4 +65,4 @@ const BookingCard: React.FC<BookingCardProps> = ({ amount, handleReserve }) => {
   );
 };
 
-export default BookingCard
+export default BookingCard;

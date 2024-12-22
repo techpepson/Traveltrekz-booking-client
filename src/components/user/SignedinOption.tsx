@@ -1,12 +1,23 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import Notification from '../../assets/notification.svg'
 import Reservation from '../../assets/reservation.svg'
 import Wishlist from '../../assets/wishlist.svg'
 import Account from '../../assets/account.svg'
 import Logout from '../../assets/logout.svg'
 import Profile from '../../assets/profile.svg'
+import { Link } from 'react-router-dom';
 
 const SignedinOption: React.FC = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <div className="bg-white rounded-md py-6 px-3 flex flex-col gap-4 border w-fit text-header-600">
       <div className="flex flex-col gap-1 items-center justify-center px-4 w-full">
@@ -33,14 +44,17 @@ const SignedinOption: React.FC = () => {
         </div>
         <div className="h-0.5 w-full bg-header-400"></div>
         <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2 cursor-pointer py-2 px-3 hover:bg-header-200 hover:rounded-md">
+          <Link to="/account" className="flex items-center gap-2 cursor-pointer py-2 px-3 hover:bg-header-200 hover:rounded-md">
             <img src={Account} alt="" />
             <p>Account</p>
-          </div>
-          <div className="flex items-center gap-2 cursor-pointer py-2 px-3 hover:bg-header-200 hover:rounded-md">
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 cursor-pointer py-2 px-3 hover:bg-header-200 hover:rounded-md w-full text-left"
+          >
             <img src={Logout} alt="" />
             <p>Logout</p>
-          </div>
+          </button>
         </div>
       </div>
     </div>
