@@ -2,8 +2,8 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthProvider } from './context/AuthContext';
-import { WishlistProvider } from './context/WishlistContext';
+import { AuthProvider } from "./context/AuthContext";
+import { WishlistProvider } from "./context/WishlistContext";
 
 // User Pages
 import Home from "./pages/users/Home";
@@ -18,6 +18,7 @@ import Wishlist from "./pages/users/Wishlist";
 import SharedStories from "./pages/users/SharedStories";
 import AboutUs from "./pages/users/AboutUs";
 import HelpCenter from "./pages/users/HelpCenter";
+import "@radix-ui/themes/styles.css";
 
 // Host Pages
 import HomeHost from "./pages/host/HomeHost";
@@ -28,14 +29,14 @@ import ReservationHost from "./pages/host/ReservationHost";
 import Transaction from "./pages/host/Transaction";
 
 // Property Management Pages
-import AddProperty1 from './pages/host/AddProperty1';
-import AddProperty2 from './pages/host/AddProperty2';
-import AddProperty3 from './pages/host/AddProperty3';
-import AddProperty4 from './pages/host/AddProperty4';
-import AddProperty5 from './pages/host/AddProperty5';
+import AddProperty1 from "./pages/host/AddProperty1";
+import AddProperty2 from "./pages/host/AddProperty2";
+import AddProperty3 from "./pages/host/AddProperty3";
+import AddProperty4 from "./pages/host/AddProperty4";
+import AddProperty5 from "./pages/host/AddProperty5";
 
 // Verification Pages
-import VerificationRouter from './pages/verification/VerificationRouter';
+import VerificationRouter from "./pages/verification/VerificationRouter";
 
 const App: React.FC = () => {
   return (
@@ -54,7 +55,7 @@ const App: React.FC = () => {
           theme="light"
           transition={Bounce}
         />
-        
+
         <Routes>
           {/* Authentication Routes */}
           <Route path="/login" element={<Login />} />

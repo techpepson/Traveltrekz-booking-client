@@ -1,9 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavbarHost from "../../components/host/NavbarHost";
 import Footer from "../../components/user/Footer";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/config/store.config";
+import {
+  FetchHostApprovedPropertyThunk,
+  FetchHostPendingPropertyThunk,
+} from "../../store/thunks/properties.thunks";
+import { Badge } from "@radix-ui/themes";
 
 const PropertiesHost: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  // Redux selectors
+  const { pendingProperties, loading, approvedProperties } = useSelector(
+    (store: RootState) => store.properties.fetchPendingProperties
+  );
+
+  // States for pagination
+  const [approvedPage, setApprovedPage] = useState(1);
+  const [pendingPage, setPendingPage] = useState(1);
+  const itemsPerPage = 5; // Items per page
+
+  // Fetch data
+
+  useEffect(() => {
+    dispatch(FetchHostPendingPropertyThunk());
+  }, []);
+
+  useEffect(() => {
+    dispatch(FetchHostApprovedPropertyThunk());
+  }, []);
+
+  // Pagination Logic
+  const paginate = (data: any[], page: number) => {
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return data.slice(startIndex, endIndex);
+  };
+
+  const totalApprovedPages = Math.ceil(
+    approvedProperties.length / itemsPerPage
+  );
+  const totalPendingPages = Math.ceil(pendingProperties.length / itemsPerPage);
+
   return (
     <div>
       <NavbarHost />
@@ -19,7 +60,10 @@ const PropertiesHost: React.FC = () => {
             Add Property
           </Link>
         </div>
+
+        {/* Tabs */}
         <div role="tablist" className="tabs tabs-bordered py-6">
+          {/* Approved Properties */}
           <input
             type="radio"
             name="my_tabs_1"
@@ -29,9 +73,68 @@ const PropertiesHost: React.FC = () => {
             defaultChecked
           />
           <div role="tabpanel" className="tab-content p-10">
-            {/* Approved Content */}
+            <div className="overflow-x-auto">
+              <table className="table table-xs">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Property Title</th>
+                    <th>Room Type</th>
+                    <th>Property ID</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {paginate(approvedProperties, approvedPage).length > 0 ? (
+                    paginate(approvedProperties, approvedPage).map(
+                      (property, index) => (
+                        <tr key={property.propertyId}>
+                          <th>{index + 1}</th>
+                          <td>{property.propertyTitle}</td>
+                          <td>{property.roomType}</td>
+                          <td>{property.propertyId}</td>
+                          <td>
+                            <Badge color="blue">
+                              {property.propertyStatus}
+                            </Badge>
+                          </td>
+                        </tr>
+                      )
+                    )
+                  ) : (
+                    <tr>
+                      <td colSpan={5} className="text-center">
+                        No approved properties found.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+
+              {/* Pagination Controls */}
+              <div className="flex justify-center space-x-2 mt-4">
+                <button
+                  disabled={approvedPage === 1}
+                  onClick={() => setApprovedPage(approvedPage - 1)}
+                  className="btn btn-sm"
+                >
+                  Previous
+                </button>
+                <span>
+                  Page {approvedPage} of {totalApprovedPages}
+                </span>
+                <button
+                  disabled={approvedPage === totalApprovedPages}
+                  onClick={() => setApprovedPage(approvedPage + 1)}
+                  className="btn btn-sm"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
           </div>
 
+          {/* Pending Properties */}
           <input
             type="radio"
             name="my_tabs_1"
@@ -40,7 +143,79 @@ const PropertiesHost: React.FC = () => {
             aria-label="Pending"
           />
           <div role="tabpanel" className="tab-content p-10">
-            {/* Pending Content */}
+            <div className="overflow-x-auto">
+              {loading ? (
+                <div className="flex justify-center items-center">
+                  <span className="loading loading-dots"></span>
+                </div>
+              ) : (
+                <table className="table table-xs">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Property Title</th>
+                      <th>Room Type</th>
+                      <th>Property ID</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {paginate(pendingProperties, pendingPage).length > 0 ? (
+                      paginate(pendingProperties, pendingPage).map(
+                        (property, index) => (
+                          <tr key={property.propertyId}>
+                            <th>{index + 1}</th>
+                            <td>{property.propertyTitle}</td>
+                            <td>{property.roomType}</td>
+                            <td>{property.propertyId}</td>
+                            <td>
+                              <Badge color="blue">
+                                {property.propertyStatus}
+                              </Badge>
+                            </td>
+                            <td>
+                              <Link to="/">
+                                <Badge color="green">
+                                  <button>Details</button>
+                                </Badge>
+                              </Link>
+                            </td>
+                          </tr>
+                        )
+                      )
+                    ) : (
+                      <tr>
+                        <td colSpan={6} className="text-center">
+                          No pending properties found.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              )}
+
+              {/* Pagination Controls */}
+              <div className="flex justify-center space-x-2 mt-4">
+                <button
+                  disabled={pendingPage === 1}
+                  onClick={() => setPendingPage(pendingPage - 1)}
+                  className="btn btn-sm"
+                >
+                  Previous
+                </button>
+                <span>
+                  Page {pendingPage} of {totalPendingPages}
+                </span>
+                <button
+                  disabled={pendingPage === totalPendingPages}
+                  onClick={() => setPendingPage(pendingPage + 1)}
+                  className="btn btn-sm"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
