@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import Cookies from "js-cookie";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -8,38 +15,23 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     // Check localStorage on initial load
-    return localStorage.getItem('isAuthenticated') === 'true';
+    return localStorage.getItem("isAuthenticated") === "true";
   });
 
   const login = () => {
     setIsAuthenticated(true);
-    localStorage.setItem('isAuthenticated', 'true');
+    Cookies.set("isAuthenticated", "true");
   };
 
   const logout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem('isAuthenticated');
+    Cookies.remove("isAuthenticated");
   };
-
-  // Optional: Verify token validity on page load
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        // Add your token validation logic here
-        const token = localStorage.getItem('token');
-        if (!token) {
-          logout();
-        }
-      } catch (error) {
-        logout();
-      }
-    };
-
-    checkAuth();
-  }, []);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>

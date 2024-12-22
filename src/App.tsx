@@ -2,8 +2,8 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthProvider } from './context/AuthContext';
-import { WishlistProvider } from './context/WishlistContext';
+import { AuthProvider } from "./context/AuthContext";
+import { WishlistProvider } from "./context/WishlistContext";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 // User Pages
@@ -61,96 +61,156 @@ const App: React.FC = () => {
           <Route path="/help" element={<HelpCenter />} />
 
           {/* Protected User Routes */}
-          <Route path="/account" element={
-            <ProtectedRoute>
-              <Account />
-            </ProtectedRoute>
-          } />
-          <Route path="/account-edit" element={
-            <ProtectedRoute>
-              <AccountEdit />
-            </ProtectedRoute>
-          } />
-          <Route path="/reservation" element={
-            <ProtectedRoute>
-              <Reservation />
-            </ProtectedRoute>
-          } />
-          <Route path="/wishlist" element={
-            <ProtectedRoute>
-              <Wishlist />
-            </ProtectedRoute>
-          } />
-          <Route path="/booking" element={
-            <ProtectedRoute>
-              <Booking />
-            </ProtectedRoute>
-          } />
-          <Route path="/stories" element={
-            <ProtectedRoute>
-              <SharedStories />
-            </ProtectedRoute>
-          } />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/verification"
+            element={
+              <ProtectedRoute>
+                <VerificationRouter />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/account-edit"
+            element={
+              <ProtectedRoute>
+                <AccountEdit />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reservation"
+            element={
+              <ProtectedRoute>
+                <Reservation />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/wishlist"
+            element={
+              <ProtectedRoute>
+                <Wishlist />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/booking"
+            element={
+              <ProtectedRoute>
+                <Booking />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/stories"
+            element={
+              <ProtectedRoute>
+                <SharedStories />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Host Routes - Home page public, others protected */}
-          <Route path="/host/*" element={
-            <Routes>
-              {/* Public Host Home */}
-              <Route path="/" element={<HomeHost />} />
-              
-              {/* Protected Host Routes */}
-              <Route path="/account" element={
-                <ProtectedRoute>
-                  <AccountHost />
-                </ProtectedRoute>
-              } />
-              <Route path="/account-edit" element={
-                <ProtectedRoute>
-                  <AccountEditHost />
-                </ProtectedRoute>
-              } />
-              <Route path="/property" element={
-                <ProtectedRoute>
-                  <PropertiesHost />
-                </ProtectedRoute>
-              } />
-              <Route path="/reservation" element={
-                <ProtectedRoute>
-                  <ReservationHost />
-                </ProtectedRoute>
-              } />
-              <Route path="/transaction" element={
-                <ProtectedRoute>
-                  <Transaction />
-                </ProtectedRoute>
-              } />
-              <Route path="/add-property-1" element={
-                <ProtectedRoute>
-                  <AddProperty1 />
-                </ProtectedRoute>
-              } />
-              <Route path="/add-property-2" element={
-                <ProtectedRoute>
-                  <AddProperty2 />
-                </ProtectedRoute>
-              } />
-              <Route path="/add-property-3" element={
-                <ProtectedRoute>
-                  <AddProperty3 />
-                </ProtectedRoute>
-              } />
-              <Route path="/add-property-4" element={
-                <ProtectedRoute>
-                  <AddProperty4 />
-                </ProtectedRoute>
-              } />
-              <Route path="/add-property-5" element={
-                <ProtectedRoute>
-                  <AddProperty5 />
-                </ProtectedRoute>
-              } />
-            </Routes>
-          } />
+          <Route
+            path="/host/*"
+            element={
+              <Routes>
+                {/* Public Host Home */}
+                <Route path="/" element={<HomeHost />} />
+
+                {/* Protected Host Routes */}
+                <Route
+                  path="/account"
+                  element={
+                    <ProtectedRoute>
+                      <AccountHost />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/account-edit"
+                  element={
+                    <ProtectedRoute>
+                      <AccountEditHost />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/property"
+                  element={
+                    <ProtectedRoute>
+                      <PropertiesHost />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/reservation"
+                  element={
+                    <ProtectedRoute>
+                      <ReservationHost />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/transaction"
+                  element={
+                    <ProtectedRoute>
+                      <Transaction />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/add-property-1"
+                  element={
+                    <ProtectedRoute>
+                      <AddProperty1 />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/add-property-2"
+                  element={
+                    <ProtectedRoute>
+                      <AddProperty2 />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/add-property-3"
+                  element={
+                    <ProtectedRoute>
+                      <AddProperty3 />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/add-property-4"
+                  element={
+                    <ProtectedRoute>
+                      <AddProperty4 />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/add-property-5"
+                  element={
+                    <ProtectedRoute>
+                      <AddProperty5 />
+                    </ProtectedRoute>
+                  }
+                />
+              </Routes>
+            }
+          />
         </Routes>
       </WishlistProvider>
     </AuthProvider>

@@ -35,6 +35,7 @@ const HostVerification: React.FC = () => {
     hostHostingExperience: 0,
     userRole: "super-admin",
     userType: "host",
+    hostBio: "",
   });
 
   const handleInputChange = (
@@ -51,7 +52,6 @@ const HostVerification: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(HostDetailsAddThunk(formData));
-    console.log(formData);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,12 +149,29 @@ const HostVerification: React.FC = () => {
       <div className="flex flex-col gap-2">
         <label className="font-semibold">Business Address</label>
         <textarea
+          placeholder="Enter your business address"
           name="hostBusinessAddress"
           value={formData.hostBusinessAddress}
           onChange={handleInputChange}
           className="border rounded-md p-2"
           rows={3}
         />
+
+        {/*host bio*/}
+        <div className="flex flex-col ">
+          <label htmlFor="hostBio" className="font-bold">
+            Bio
+          </label>
+          <textarea
+            name="hostBio"
+            id="hostBio"
+            value={formData.hostBio}
+            onChange={handleInputChange}
+            placeholder="Briefly describe yourself"
+            className="border rounded-md p-2"
+            rows={3}
+          />
+        </div>
       </div>
       <div className="flex flex-col gap-2">
         <label className="font-semibold">Company Registration Number</label>

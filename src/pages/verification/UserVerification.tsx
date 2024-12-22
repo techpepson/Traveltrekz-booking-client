@@ -22,13 +22,16 @@ const UserVerification: React.FC = () => {
     guestGovernmentIdNumber: "",
     userRole: "guest-admin",
     userType: "guest",
+    guestBio: "",
   });
 
   //dispatch function
   const dispatch = useDispatch<AppDispatch>();
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -126,6 +129,19 @@ const UserVerification: React.FC = () => {
           onChange={handleFileChange}
           accept="image/*"
           className="border rounded-md p-2"
+        />
+      </div>
+
+      {/*Bio field*/}
+      <div className="flex flex-col gap-2">
+        <label className="font-semibold">Bio</label>
+        <textarea
+          onChange={handleInputChange}
+          value={formData.guestBio}
+          placeholder="Briefly describe yourself"
+          name="guestBio"
+          minLength={500}
+          className="border rows-{3} border-solid border-slate-700"
         />
       </div>
     </div>

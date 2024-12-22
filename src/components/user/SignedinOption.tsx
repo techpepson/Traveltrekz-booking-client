@@ -1,21 +1,37 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import Notification from '../../assets/notification.svg'
-import Reservation from '../../assets/reservation.svg'
-import Wishlist from '../../assets/wishlist.svg'
-import Account from '../../assets/account.svg'
-import Logout from '../../assets/logout.svg'
-import Profile from '../../assets/profile.svg'
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import Notification from "../../assets/notification.svg";
+import Reservation from "../../assets/reservation.svg";
+import Wishlist from "../../assets/wishlist.svg";
+import Account from "../../assets/account.svg";
+import Logout from "../../assets/logout.svg";
+import Profile from "../../assets/profile.svg";
+import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { getCookie } from "../../utils/cookieGetFunction";
 
 const SignedinOption: React.FC = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const [person, setPerson] = useState<string>("");
+  const [personEmail, setPersonEmail] = useState<string>("");
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
+  };
+
+  async () => {
+    const visitor = await getCookie();
+    setPerson(visitor.data.name);
+    console.log(person);
+  };
+
+  async () => {
+    const visitor = await getCookie();
+    setPersonEmail(visitor.data.email);
+    console.log(personEmail);
   };
 
   return (
@@ -23,8 +39,8 @@ const SignedinOption: React.FC = () => {
       <div className="flex flex-col gap-1 items-center justify-center px-4 w-full">
         <img src={Profile} alt="" className="w-28" />
         <div className="flex flex-col justify-center items-center">
-          <p className="font-semibold ">John Doe</p>
-          <p className="text-header-400">johndoe@gmail.com</p>
+          <p className="font-semibold ">{person}</p>
+          <p className="text-header-400">{personEmail}</p>
         </div>
       </div>
       <div className="flex flex-col gap-3">
@@ -44,7 +60,10 @@ const SignedinOption: React.FC = () => {
         </div>
         <div className="h-0.5 w-full bg-header-400"></div>
         <div className="flex flex-col gap-1">
-          <Link to="/account" className="flex items-center gap-2 cursor-pointer py-2 px-3 hover:bg-header-200 hover:rounded-md">
+          <Link
+            to="/account"
+            className="flex items-center gap-2 cursor-pointer py-2 px-3 hover:bg-header-200 hover:rounded-md"
+          >
             <img src={Account} alt="" />
             <p>Account</p>
           </Link>
@@ -61,4 +80,4 @@ const SignedinOption: React.FC = () => {
   );
 };
 
-export default SignedinOption
+export default SignedinOption;

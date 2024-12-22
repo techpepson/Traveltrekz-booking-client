@@ -52,6 +52,7 @@ export interface HostServerPayload {
   hostGovernmentIdNumber: string;
   hostHostingExperience: number | null | string;
   userRole: string;
+  hostBio: string;
 }
 
 export interface GuestServerPayload {
@@ -65,6 +66,13 @@ export interface GuestServerPayload {
   guestGovernmentIdType: string;
   guestGovernmentIdNumber: string;
   userRole: string;
+  guestBio: string;
 }
 
-export interface BooleanInterface {}
+export interface GuestDetailsUpdate {
+  guestPhoneNumber?: string;
+  guestProfilePicture?: string | null;
+  guestBio?: string;
+  guestEmail?: string;
+  guestCountry?: string;
+}
