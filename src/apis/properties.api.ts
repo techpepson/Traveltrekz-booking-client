@@ -45,3 +45,66 @@ export const addPropertyApi = async (payload: PropertyPayloadTypes) => {
     throw new Error(networkError);
   }
 };
+
+export const fetchPendingPropertiesApi = async () => {
+  try {
+    const url = "/properties/host-get-pending-property";
+    const token = Cookies.get("generated_token");
+
+    setAuth(token);
+    const response = await api.get(url);
+
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response && error.response?.data) {
+        const errorMessage =
+          error.response.data.message ||
+          "An error occurred while fetching properties";
+        console.error("Axios error:", errorMessage);
+        throw new Error(errorMessage);
+      }
+      // Handle unexpected Axios errors without a response
+      const genericError =
+        "An unexpected error occurred while making the request.";
+      console.error("Axios error:", genericError);
+      throw new Error(genericError);
+    }
+    // Handle non-Axios errors (e.g., network errors)
+    const networkError = "A network error occurred. Please try again later.";
+    console.error("Network error:", networkError);
+    throw new Error(networkError);
+  }
+};
+
+//approved properties
+export const fetchApprovedPropertiesApi = async () => {
+  try {
+    const url = "/properties/host-get-approved-property";
+    const token = Cookies.get("generated_token");
+
+    setAuth(token);
+    const response = await api.get(url);
+
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response && error.response?.data) {
+        const errorMessage =
+          error.response.data.message ||
+          "An error occurred while fetching properties";
+        console.error("Axios error:", errorMessage);
+        throw new Error(errorMessage);
+      }
+      // Handle unexpected Axios errors without a response
+      const genericError =
+        "An unexpected error occurred while making the request.";
+      console.error("Axios error:", genericError);
+      throw new Error(genericError);
+    }
+    // Handle non-Axios errors (e.g., network errors)
+    const networkError = "A network error occurred. Please try again later.";
+    console.error("Network error:", networkError);
+    throw new Error(networkError);
+  }
+};

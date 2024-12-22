@@ -2,9 +2,14 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+<<<<<<< HEAD
 import { AuthProvider } from './context/AuthContext';
 import { WishlistProvider } from './context/WishlistContext';
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+=======
+import { AuthProvider } from "./context/AuthContext";
+import { WishlistProvider } from "./context/WishlistContext";
+>>>>>>> 470b766e2287ef605d460d067886bc673a46b7bc
 
 // User Pages
 import Home from "./pages/users/Home";
@@ -19,7 +24,11 @@ import Wishlist from "./pages/users/Wishlist";
 import SharedStories from "./pages/users/SharedStories";
 import AboutUs from "./pages/users/AboutUs";
 import HelpCenter from "./pages/users/HelpCenter";
+<<<<<<< HEAD
 import Booking from "./pages/users/Booking";
+=======
+import "@radix-ui/themes/styles.css";
+>>>>>>> 470b766e2287ef605d460d067886bc673a46b7bc
 
 // Host Pages
 import HomeHost from "./pages/host/HomeHost";
@@ -30,14 +39,14 @@ import ReservationHost from "./pages/host/ReservationHost";
 import Transaction from "./pages/host/Transaction";
 
 // Property Management Pages
-import AddProperty1 from './pages/host/AddProperty1';
-import AddProperty2 from './pages/host/AddProperty2';
-import AddProperty3 from './pages/host/AddProperty3';
-import AddProperty4 from './pages/host/AddProperty4';
-import AddProperty5 from './pages/host/AddProperty5';
+import AddProperty1 from "./pages/host/AddProperty1";
+import AddProperty2 from "./pages/host/AddProperty2";
+import AddProperty3 from "./pages/host/AddProperty3";
+import AddProperty4 from "./pages/host/AddProperty4";
+import AddProperty5 from "./pages/host/AddProperty5";
 
 // Verification Pages
-import VerificationRouter from './pages/verification/VerificationRouter';
+import VerificationRouter from "./pages/verification/VerificationRouter";
 
 const App: React.FC = () => {
   return (
@@ -48,6 +57,10 @@ const App: React.FC = () => {
           autoClose={3000}
           transition={Bounce}
         />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 470b766e2287ef605d460d067886bc673a46b7bc
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
