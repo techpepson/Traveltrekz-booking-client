@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import Navbar from '../../components/user/Navbar';
-import Footer from '../../components/user/Footer';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import Navbar from "../../components/user/Navbar";
+import Footer from "../../components/user/Footer";
+import { toast } from "react-toastify";
 
 interface BookingFormData {
   email: string;
@@ -26,33 +26,33 @@ const Booking: React.FC = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const propertyDetails = location.state as LocationState | null;
   const [isLoading, setIsLoading] = useState(true);
 
   const [formData, setFormData] = useState<BookingFormData>({
-    email: '',
-    firstName: '',
-    lastName: '',
-    phone: '',
-    country: '',
-    startDate: '',
-    endDate: '',
-    guests: 1
+    email: "",
+    firstName: "",
+    lastName: "",
+    phone: "",
+    country: "",
+    startDate: "",
+    endDate: "",
+    guests: 1,
   });
 
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [numberOfNights, setNumberOfNights] = useState<number>(0);
+  const propertyDetails = location.state as LocationState | null;
 
   useEffect(() => {
     if (!isAuthenticated) {
-      toast.error('Please login to make a booking');
-      navigate('/login');
+      toast.error("Please login to make a booking");
+      navigate("/login");
       return;
     }
 
     if (!propertyDetails) {
-      toast.error('Invalid property details');
-      navigate('/property');
+      toast.error("Invalid property details");
+      navigate("/property");
       return;
     }
 
@@ -60,10 +60,16 @@ const Booking: React.FC = () => {
   }, [isAuthenticated, navigate, propertyDetails]);
 
   useEffect(() => {
-    if (formData.startDate && formData.endDate && propertyDetails?.pricePerNight) {
+    if (
+      formData.startDate &&
+      formData.endDate &&
+      propertyDetails?.pricePerNight
+    ) {
       const start = new Date(formData.startDate);
       const end = new Date(formData.endDate);
-      const nights = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+      const nights = Math.ceil(
+        (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+      );
       setNumberOfNights(nights);
       setTotalPrice(nights * propertyDetails.pricePerNight);
     }
@@ -71,50 +77,50 @@ const Booking: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.startDate || !formData.endDate) {
-      toast.error('Please select booking dates');
+      toast.error("Please select booking dates");
       return;
     }
 
     const startDate = new Date(formData.startDate);
     const endDate = new Date(formData.endDate);
-    
+
     if (startDate >= endDate) {
-      toast.error('End date must be after start date');
+      toast.error("End date must be after start date");
       return;
     }
 
     if (startDate < new Date()) {
-      toast.error('Start date cannot be in the past');
+      toast.error("Start date cannot be in the past");
       return;
     }
 
     // Here you would typically make an API call to save the booking
     try {
       // Simulate API call
-      toast.success('Booking successful!');
-      navigate('/reservation', { 
-        state: { 
+      toast.success("Booking successful!");
+      navigate("/reservation", {
+        state: {
           reservation: {
             ...formData,
             propertyId: propertyDetails?.propertyId,
             propertyName: propertyDetails?.propertyName,
             totalPrice,
-            numberOfNights
-          }
-        }
+            numberOfNights,
+          },
+        },
       });
     } catch (error) {
-      toast.error('Failed to create booking. Please try again.');
+      toast.error("Failed to create booking. Please try again.");
     }
   };
 
@@ -141,7 +147,7 @@ const Booking: React.FC = () => {
         <h1 className="text-2xl md:text-3xl font-bold text-header-600 mb-6">
           Book Your Stay at {propertyDetails.propertyName}
         </h1>
-        
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
@@ -157,7 +163,7 @@ const Booking: React.FC = () => {
                 className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-header-600 mb-2">
                 Last Name
@@ -259,7 +265,9 @@ const Booking: React.FC = () => {
           </div>
 
           <div className="mt-8 p-6 bg-gray-50 rounded-lg">
-            <h2 className="text-xl font-semibold text-header-600 mb-4">Booking Summary</h2>
+            <h2 className="text-xl font-semibold text-header-600 mb-4">
+              Booking Summary
+            </h2>
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span>Price per night</span>
@@ -290,4 +298,4 @@ const Booking: React.FC = () => {
   );
 };
 
-export default Booking; 
+export default Booking;

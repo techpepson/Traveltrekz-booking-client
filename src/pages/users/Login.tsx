@@ -22,19 +22,31 @@ const Login: React.FC = () => {
   const { loading } = useSelector(
     (store: RootState) => store.authReducer.login
   );
-
   const { login } = useAuth();
-  //handle submit function
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    //login payload
+    // Login payload
     const loginPayload: LoginBodyTypes = {
       userEmail: email,
       userPassword: password,
     };
-    dispatch(LoginAuthThunk(loginPayload));
-    login();
+
+    try {
+      // Dispatch the login action and wait for the response
+      const resultAction = await dispatch(LoginAuthThunk(loginPayload));
+
+      // Check if the login was successful
+      if (LoginAuthThunk.fulfilled.match(resultAction)) {
+        login(); // Update the auth state
+      } else {
+        console.error("Login failed: ", resultAction.payload);
+        alert("Login failed. Please check your credentials.");
+      }
+    } catch (error) {
+      console.error("Error during login: ", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   //toggle password view function
