@@ -2,14 +2,9 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-<<<<<<< HEAD
 import { AuthProvider } from './context/AuthContext';
 import { WishlistProvider } from './context/WishlistContext';
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-=======
-import { AuthProvider } from "./context/AuthContext";
-import { WishlistProvider } from "./context/WishlistContext";
->>>>>>> 470b766e2287ef605d460d067886bc673a46b7bc
 
 // User Pages
 import Home from "./pages/users/Home";
@@ -24,11 +19,8 @@ import Wishlist from "./pages/users/Wishlist";
 import SharedStories from "./pages/users/SharedStories";
 import AboutUs from "./pages/users/AboutUs";
 import HelpCenter from "./pages/users/HelpCenter";
-<<<<<<< HEAD
 import Booking from "./pages/users/Booking";
-=======
 import "@radix-ui/themes/styles.css";
->>>>>>> 470b766e2287ef605d460d067886bc673a46b7bc
 
 // Host Pages
 import HomeHost from "./pages/host/HomeHost";
@@ -57,10 +49,7 @@ const App: React.FC = () => {
           autoClose={3000}
           transition={Bounce}
         />
-<<<<<<< HEAD
-=======
 
->>>>>>> 470b766e2287ef605d460d067886bc673a46b7bc
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
@@ -105,9 +94,9 @@ const App: React.FC = () => {
 
           {/* Protected Host Routes */}
           <Route path="/host/*" element={
-            <ProtectedRoute>
-              <Routes>
+            <Routes>
                 <Route path="/" element={<HomeHost />} />
+              <ProtectedRoute>
                 <Route path="/account" element={<AccountHost />} />
                 <Route path="/account-edit" element={<AccountEditHost />} />
                 <Route path="/property" element={<PropertiesHost />} />
@@ -118,8 +107,8 @@ const App: React.FC = () => {
                 <Route path="/add-property-3" element={<AddProperty3 />} />
                 <Route path="/add-property-4" element={<AddProperty4 />} />
                 <Route path="/add-property-5" element={<AddProperty5 />} />
-              </Routes>
-            </ProtectedRoute>
+              </ProtectedRoute>
+            </Routes>
           } />
         </Routes>
       </WishlistProvider>

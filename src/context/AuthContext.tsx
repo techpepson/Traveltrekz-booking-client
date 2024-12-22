@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-=======
-import React, { createContext, useContext, useState, ReactNode } from "react";
->>>>>>> 470b766e2287ef605d460d067886bc673a46b7bc
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -12,19 +8,11 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-<<<<<<< HEAD
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     // Check localStorage on initial load
     return localStorage.getItem('isAuthenticated') === 'true';
   });
-=======
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  // In a real app, you'd want to check localStorage or a token here
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
->>>>>>> 470b766e2287ef605d460d067886bc673a46b7bc
 
   const login = () => {
     setIsAuthenticated(true);
