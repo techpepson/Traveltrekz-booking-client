@@ -60,12 +60,11 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
           <ul className="flex items-center gap-2 lg:gap-8">
-            <button
-              onClick={() => handleProtectedAction('/host')}
+            <Link to="/host"
               className="bg-white hidden lg:block text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition"
             >
               Become A Host
-            </button>
+            </Link>
             <div className="dropdown dropdown-end">
               <button
                 tabIndex={0}

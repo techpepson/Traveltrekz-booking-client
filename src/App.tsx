@@ -92,22 +92,63 @@ const App: React.FC = () => {
             </ProtectedRoute>
           } />
 
-          {/* Protected Host Routes */}
+          {/* Host Routes - Home page public, others protected */}
           <Route path="/host/*" element={
             <Routes>
-                <Route path="/" element={<HomeHost />} />
-              <ProtectedRoute>
-                <Route path="/account" element={<AccountHost />} />
-                <Route path="/account-edit" element={<AccountEditHost />} />
-                <Route path="/property" element={<PropertiesHost />} />
-                <Route path="/reservation" element={<ReservationHost />} />
-                <Route path="/transaction" element={<Transaction />} />
-                <Route path="/add-property-1" element={<AddProperty1 />} />
-                <Route path="/add-property-2" element={<AddProperty2 />} />
-                <Route path="/add-property-3" element={<AddProperty3 />} />
-                <Route path="/add-property-4" element={<AddProperty4 />} />
-                <Route path="/add-property-5" element={<AddProperty5 />} />
-              </ProtectedRoute>
+              {/* Public Host Home */}
+              <Route path="/" element={<HomeHost />} />
+              
+              {/* Protected Host Routes */}
+              <Route path="/account" element={
+                <ProtectedRoute>
+                  <AccountHost />
+                </ProtectedRoute>
+              } />
+              <Route path="/account-edit" element={
+                <ProtectedRoute>
+                  <AccountEditHost />
+                </ProtectedRoute>
+              } />
+              <Route path="/property" element={
+                <ProtectedRoute>
+                  <PropertiesHost />
+                </ProtectedRoute>
+              } />
+              <Route path="/reservation" element={
+                <ProtectedRoute>
+                  <ReservationHost />
+                </ProtectedRoute>
+              } />
+              <Route path="/transaction" element={
+                <ProtectedRoute>
+                  <Transaction />
+                </ProtectedRoute>
+              } />
+              <Route path="/add-property-1" element={
+                <ProtectedRoute>
+                  <AddProperty1 />
+                </ProtectedRoute>
+              } />
+              <Route path="/add-property-2" element={
+                <ProtectedRoute>
+                  <AddProperty2 />
+                </ProtectedRoute>
+              } />
+              <Route path="/add-property-3" element={
+                <ProtectedRoute>
+                  <AddProperty3 />
+                </ProtectedRoute>
+              } />
+              <Route path="/add-property-4" element={
+                <ProtectedRoute>
+                  <AddProperty4 />
+                </ProtectedRoute>
+              } />
+              <Route path="/add-property-5" element={
+                <ProtectedRoute>
+                  <AddProperty5 />
+                </ProtectedRoute>
+              } />
             </Routes>
           } />
         </Routes>
