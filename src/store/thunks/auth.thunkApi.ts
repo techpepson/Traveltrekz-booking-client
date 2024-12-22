@@ -7,6 +7,7 @@ import {
 import axios from "axios";
 import { toast } from "react-toastify"; // Importing Toastify
 import Cookie from "js-cookie";
+import { useAuth } from "../../context/AuthContext";
 
 export const RegisterAuthThunk = createAsyncThunk(
   "auth/register",
@@ -78,13 +79,12 @@ export const LoginAuthThunk = createAsyncThunk(
 
       const response = await loginApi(data);
 
-      // Check if the status is 201 (success)
+      // Check if the status is 200 (success)
       if (response?.status === 200) {
         //store the logged in user details in a cookie
         Cookie.set("user_name", response.data.name);
         Cookie.set("generated_token", response.data.token);
         Cookie.set("user_status", response.data.userStatus);
-
         //redirect the logged in user based on their user status
         if (response.data.userStatus !== "approved") {
           setTimeout(() => {

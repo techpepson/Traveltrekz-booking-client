@@ -5,6 +5,7 @@ import { loginReducer } from "../reducers/login.auth.reducer";
 import { hostAccountDetailsReducer } from "../reducers/account-details";
 import { guestAccountSlice } from "../reducers/guestAccountAdd.reducer";
 import { addProperty } from "../reducers/addProperties.reducer";
+import { pendingPropertiesFetch } from "../reducers/fetchHostPendingProperties";
 
 //auth reducers combined
 export const authReducers = combineReducers({
@@ -24,4 +25,5 @@ export const accountDetailsReducers = combineReducers({
 
 export const propertiesReducers = combineReducers({
   addProperty: addProperty.reducer,
+  fetchPendingProperties: pendingPropertiesFetch.reducer,
 });

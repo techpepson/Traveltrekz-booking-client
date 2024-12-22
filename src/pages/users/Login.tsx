@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "../../store/config/store.config";
 import { useSelector, useDispatch } from "react-redux";
 import { LoginBodyTypes } from "../../interface/auth.reducer.interface";
 import { FaLock, FaUnlock } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -22,6 +23,7 @@ const Login: React.FC = () => {
     (store: RootState) => store.authReducer.login
   );
 
+  const { login } = useAuth();
   //handle submit function
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -32,6 +34,7 @@ const Login: React.FC = () => {
       userPassword: password,
     };
     dispatch(LoginAuthThunk(loginPayload));
+    login();
   };
 
   //toggle password view function
