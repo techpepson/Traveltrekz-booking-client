@@ -9,6 +9,8 @@ import {
   FetchHostPendingPropertyThunk,
 } from "../../store/thunks/properties.thunks";
 import { Badge } from "@radix-ui/themes";
+import { getCookie } from "../../utils/cookieGetFunction";
+import { setAuth } from "../../apis/api.config";
 
 const PropertiesHost: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,16 +22,27 @@ const PropertiesHost: React.FC = () => {
 
   // States for pagination
   const [approvedPage, setApprovedPage] = useState(1);
+  const [cookie, setCookie] = useState<string>("");
   const [pendingPage, setPendingPage] = useState(1);
   const itemsPerPage = 5; // Items per page
 
-  // Fetch data
-
   useEffect(() => {
+    const fetchCookie = async () => {
+      const cookie = await getCookie();
+      setCookie(cookie.token);
+      console.log(cookie);
+    };
+    fetchCookie();
+  }, []);
+
+  // Fetch data
+  useEffect(() => {
+    setAuth(cookie);
     dispatch(FetchHostPendingPropertyThunk());
   }, []);
 
   useEffect(() => {
+    setAuth(cookie);
     dispatch(FetchHostApprovedPropertyThunk());
   }, []);
 

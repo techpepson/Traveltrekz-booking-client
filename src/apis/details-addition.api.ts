@@ -2,14 +2,19 @@ import {
   GuestServerPayload,
   HostServerPayload,
 } from "../interface/account-details";
+import { getCookie } from "../utils/cookieGetFunction";
 import { api } from "./api.config";
 import { setAuth } from "./api.config";
-import Cookies from "js-cookie";
 
 const apiEndpoint = "/users/update-host-details";
 export const addHostDetailsApi = async (data: HostServerPayload) => {
   try {
-    const token = Cookies.get("generated_token");
+    const getToken = async () => {
+      const token = await getCookie();
+      return token.token;
+    };
+    // Set the authorization header
+    const token = await getToken();
     setAuth(token);
     const response = await api.post(apiEndpoint, data);
     return response;
@@ -26,7 +31,12 @@ export const addHostDetailsApi = async (data: HostServerPayload) => {
 export const addGuestDetailsApi = async (data: GuestServerPayload) => {
   const guestEndpoint = "/users/update-guest-details";
   try {
-    const token = Cookies.get("generated_token");
+    const getToken = async () => {
+      const token = await getCookie();
+      return token.token;
+    };
+    // Set the authorization header
+    const token = await getToken();
     setAuth(token);
     const response = await api.post(guestEndpoint, data);
     return response;

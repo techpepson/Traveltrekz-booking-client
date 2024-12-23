@@ -1,14 +1,15 @@
 // configuration file for APIs
 import axios from "axios";
 // API base URL from environment variable
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const baseUrl =
+  import.meta.env.VITE_API_BASE_URL || "https://traveltrekz.onrender.com/api";
 
 const developmentBaseUrl =
   import.meta.env.VITE_DEVELOPMENT_API_BASE_URL || "http://localhost:3000/api";
 
 // Axios instance for making API requests
 export const api = axios.create({
-  baseURL: developmentBaseUrl,
+  baseURL: baseUrl,
   withCredentials: true,
 });
 

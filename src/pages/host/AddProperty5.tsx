@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavbarHost from "../../components/host/NavbarHost";
 import Footer from "../../components/user/Footer";
 import StepIndicator from "../../components/host/StepIndicator";
@@ -8,6 +8,8 @@ import { AppDispatch, RootState } from "../../store/config/store.config";
 import { AddPropertyThunk } from "../../store/thunks/properties.thunks";
 import { PropertyPayloadTypes } from "../../interface/properties.interface";
 import { updateRoomType } from "../../store/reducers/addProperties.reducer";
+import { setAuth } from "../../apis/api.config";
+import { getCookie } from "../../utils/cookieGetFunction";
 
 const AddProperty5: React.FC = () => {
   const steps = [
@@ -19,7 +21,7 @@ const AddProperty5: React.FC = () => {
   ];
 
   const [isChecked, setIsChecked] = useState<boolean>(false);
-
+  const [cookie, setCookie] = useState<string>("");
   const handleCheckToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(!isChecked);
   };
@@ -55,7 +57,17 @@ const AddProperty5: React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
+  useEffect(() => {
+    const fetchCookie = async () => {
+      const cookie = await getCookie();
+      setCookie(cookie.token);
+      console.log(cookie);
+    };
+    fetchCookie();
+  }, []);
+
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+    setAuth(cookie);
     dispatch(AddPropertyThunk(propertyPayload));
   };
 
