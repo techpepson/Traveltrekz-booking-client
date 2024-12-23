@@ -6,6 +6,7 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
+import { getCookie } from "../utils/cookieGetFunction";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -33,6 +34,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     Cookies.remove("isAuthenticated");
   };
 
+  const fetchCookie = async () => {
+    const cookie = await getCookie();
+    
+  };
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}

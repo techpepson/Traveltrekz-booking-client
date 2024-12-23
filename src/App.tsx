@@ -39,6 +39,7 @@ import AddProperty5 from "./pages/host/AddProperty5";
 
 // Verification Pages
 import VerificationRouter from "./pages/verification/VerificationRouter";
+import { getCookie } from "./utils/cookieGetFunction";
 
 const App: React.FC = () => {
   return (

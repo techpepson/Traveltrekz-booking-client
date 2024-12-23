@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Notification from "../../assets/notification.svg";
@@ -8,39 +8,45 @@ import Account from "../../assets/account.svg";
 import Logout from "../../assets/logout.svg";
 import Profile from "../../assets/profile.svg";
 import { Link } from "react-router-dom";
-import Cookies from "js-cookie";
 import { getCookie } from "../../utils/cookieGetFunction";
 
 const SignedinOption: React.FC = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
-  const [person, setPerson] = useState<string>("");
-  const [personEmail, setPersonEmail] = useState<string>("");
+  const [person, setPerson] = useState<string>(""); // Holds the user's name
+  const [personEmail, setPersonEmail] = useState<string>(""); // Holds the user's email
+  const [profilePicture, setProfilePicture] = useState<string>(""); // Holds the user's email
+
+  // Fetch cookies when component mounts
+  useEffect(() => {
+    const fetchCookies = async () => {
+      try {
+        const visitor = await getCookie(); // Fetch cookies using the API call
+
+        // Update state with data from cookies
+        setPerson(visitor.name); // No need for .data.name, already extracted
+        setPersonEmail(visitor.email);
+        setProfilePicture(visitor.profilePicture);
+      } catch (error) {
+        console.error("Failed to fetch cookies:", error);
+      }
+    };
+
+    fetchCookies(); // Call the function inside useEffect
+  }, []); // Empty dependency array to run only once on component mount
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
-  async () => {
-    const visitor = await getCookie();
-    setPerson(visitor.data.name);
-    console.log(person);
-  };
-
-  async () => {
-    const visitor = await getCookie();
-    setPersonEmail(visitor.data.email);
-    console.log(personEmail);
-  };
-
   return (
     <div className="bg-white rounded-md py-6 px-3 flex flex-col gap-4 border w-fit text-header-600">
       <div className="flex flex-col gap-1 items-center justify-center px-4 w-full">
-        <img src={Profile} alt="" className="w-28" />
+        <img src={profilePicture} alt="" className="w-28" />
         <div className="flex flex-col justify-center items-center">
-          <p className="font-semibold ">{person}</p>
-          <p className="text-header-400">{personEmail}</p>
+          <p className="font-semibold ">{person}</p> {/* Display name */}
+          <p className="text-header-400">{personEmail}</p> {/* Display email */}
         </div>
       </div>
       <div className="flex flex-col gap-3">
