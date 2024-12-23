@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -40,8 +40,22 @@ import AddProperty5 from "./pages/host/AddProperty5";
 // Verification Pages
 import VerificationRouter from "./pages/verification/VerificationRouter";
 import { getCookie } from "./utils/cookieGetFunction";
+import { setAuth } from "./apis/api.config";
 
 const App: React.FC = () => {
+  const [cookie, setCookie] = useState<string>("");
+  useEffect(() => {
+    const fetchCookie = async () => {
+      const cookie = await getCookie();
+      setCookie(cookie.token);
+      console.log(cookie);
+    };
+    fetchCookie();
+  }, []);
+
+  useEffect(() => {
+    setAuth(cookie);
+  });
   return (
     <AuthProvider>
       <WishlistProvider>

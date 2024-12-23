@@ -3,13 +3,17 @@ import { api, setAuth } from "./api.config";
 import { PropertyPayloadTypes } from "../interface/properties.interface";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { getCookie } from "../utils/cookieGetFunction";
 
 export const addPropertyApi = async (payload: PropertyPayloadTypes) => {
   try {
     const urlPath = "/properties/add-property";
-    const token = Cookies.get("generated_token");
-
+    const getToken = async () => {
+      const token = await getCookie();
+      return token.token;
+    };
     // Set the authorization header
+    const token = await getToken();
     setAuth(token);
 
     // Make the API request
@@ -49,9 +53,15 @@ export const addPropertyApi = async (payload: PropertyPayloadTypes) => {
 export const fetchPendingPropertiesApi = async () => {
   try {
     const url = "/properties/host-get-pending-property";
-    const token = Cookies.get("generated_token");
 
+    const getToken = async () => {
+      const token = await getCookie();
+      return token.token;
+    };
+    // Set the authorization header
+    const token = await getToken();
     setAuth(token);
+
     const response = await api.get(url);
 
     return response;
@@ -81,9 +91,15 @@ export const fetchPendingPropertiesApi = async () => {
 export const fetchApprovedPropertiesApi = async () => {
   try {
     const url = "/properties/host-get-approved-property";
-    const token = Cookies.get("generated_token");
+    const getToken = async () => {
+      const token = await getCookie();
+      return token.token;
+    };
 
+    // Set the authorization header
+    const token = await getToken();
     setAuth(token);
+
     const response = await api.get(url);
 
     return response;

@@ -41,11 +41,9 @@ const Login: React.FC = () => {
         login(); // Update the auth state
       } else {
         console.error("Login failed: ", resultAction.payload);
-        alert("Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error during login: ", error);
-      alert("An error occurred. Please try again.");
     }
   };
 
