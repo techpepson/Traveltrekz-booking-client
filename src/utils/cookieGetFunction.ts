@@ -1,7 +1,6 @@
 //function to get a cookie from the server
 
 import axios from "axios";
-import { setAuth } from "../apis/api.config";
 
 export const getCookie = async () => {
   const cookieDevelopmentEndpoint =

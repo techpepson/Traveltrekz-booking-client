@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FaUserCircle } from "react-icons/fa";
-import SigninOption from './SigninOption'
+import SigninOption from "./SigninOption";
 import { CgMenu } from "react-icons/cg";
 import { AiOutlineClose } from "react-icons/ai";
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import SignedinOption from './SignedinOption';
-import { toast } from 'react-toastify';
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import SignedinOption from "./SignedinOption";
+import { toast } from "react-toastify";
 
 const Navbar: React.FC = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
@@ -20,8 +20,8 @@ const Navbar: React.FC = () => {
 
   const handleProtectedAction = (path: string) => {
     if (!isAuthenticated) {
-      toast.error('Please log in to access this feature');
-      navigate('/login');
+      toast.error("Please log in to access this feature");
+      navigate("/login");
       return;
     }
     navigate(path);
@@ -49,8 +49,8 @@ const Navbar: React.FC = () => {
             <Link to="/property" className="text-white hover:text-blue-100">
               Find a Property
             </Link>
-            <button 
-              onClick={() => handleProtectedAction('/stories')} 
+            <button
+              onClick={() => handleProtectedAction("/stories")}
               className="text-white hover:text-blue-100"
             >
               Share Stories
@@ -60,7 +60,8 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
           <ul className="flex items-center gap-2 lg:gap-8">
-            <Link to="/host"
+            <Link
+              to="/host"
               className="bg-white hidden lg:block text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition"
             >
               Become A Host
@@ -72,7 +73,11 @@ const Navbar: React.FC = () => {
                 className="text-blue-600 bg-white rounded-3xl flex items-center gap-2 text-2xl px-2 py-1 lg:px-3 lg:p-2"
               >
                 <RxHamburgerMenu className="font-bold hover:bg-header-200 hover:rounded-full" />
-                <FaUserCircle className={isAuthenticated ? "text-blue-600" : "text-gray-300"} />
+                <FaUserCircle
+                  className={
+                    isAuthenticated ? "text-blue-600" : "text-gray-300"
+                  }
+                />
               </button>
               <ul
                 tabIndex={0}
@@ -88,10 +93,12 @@ const Navbar: React.FC = () => {
             <Link to="/property" onClick={toggleNavbar}>
               <p>Find A Property</p>
             </Link>
-            <button onClick={() => {
-              toggleNavbar();
-              handleProtectedAction('/stories');
-            }}>
+            <button
+              onClick={() => {
+                toggleNavbar();
+                handleProtectedAction("/stories");
+              }}
+            >
               <p>Share Stories</p>
             </button>
             <Link to="/about" onClick={toggleNavbar}>
@@ -100,7 +107,7 @@ const Navbar: React.FC = () => {
             <button
               onClick={() => {
                 toggleNavbar();
-                handleProtectedAction('/host');
+                handleProtectedAction("/host");
               }}
               className="bg-white text-blue-600 py-1 px-2 md:px-4 md:py-2 rounded-full font-medium hover:bg-blue-50 transition"
             >

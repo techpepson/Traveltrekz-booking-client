@@ -29,7 +29,7 @@ import AccountEditHost from "./pages/host/AccountEditHost";
 import PropertiesHost from "./pages/host/PropertiesHost";
 import ReservationHost from "./pages/host/ReservationHost";
 import Transaction from "./pages/host/Transaction";
-
+import Birthday from "./components/birthday";
 // Property Management Pages
 import AddProperty1 from "./pages/host/AddProperty1";
 import AddProperty2 from "./pages/host/AddProperty2";
@@ -85,6 +85,7 @@ const App: React.FC = () => {
             }
           />
 
+          <Route path="/birthday" element={<Birthday />}></Route>
           <Route
             path="/verification"
             element={

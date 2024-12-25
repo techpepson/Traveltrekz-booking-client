@@ -80,11 +80,6 @@ export const LoginAuthThunk = createAsyncThunk(
 
       // Check if the status is 200 (success)
       if (response?.status === 200) {
-        //store the logged in user details in a cookie
-        // Cookie.set("user_name", response.data.name);
-        // Cookie.set("generated_token", response.data.token);
-        // Cookie.set("user_status", response.data.userStatus);
-
         //redirect the logged in user based on their user status
         if (response.data.userStatus !== "approved") {
           setTimeout(() => {
