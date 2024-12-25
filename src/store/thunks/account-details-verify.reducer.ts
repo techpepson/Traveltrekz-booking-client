@@ -17,14 +17,8 @@ export const HostDetailsAddThunk = createAsyncThunk(
     try {
       const response = await addHostDetailsApi(data);
 
-      // Check if response is present
-      if (!response) {
-        toast.error("There was no response returned");
-        return thunk.rejectWithValue("No response returned from the server");
-      }
-
       // Check the status code for success
-      if (response.status >= 200 && response.status < 300) {
+      if (response && response.status >= 200 && response.status < 300) {
         toast.success(
           response.data.message || "Host details updated successfully"
         );
@@ -59,37 +53,30 @@ export const GuestDetailsAddThunk = createAsyncThunk(
     try {
       const response = await addGuestDetailsApi(data);
 
-      // Check if response is present
-      if (!response) {
-        toast.error("There was no response returned");
-        return thunk.rejectWithValue("No response returned from the server");
-      }
-
-      // Check the status code for success
-      if (response.status >= 200 && response.status < 300) {
+      // Check if response exists and is successful
+      if (response && response.status >= 200 && response.status < 300) {
         toast.success(
           response.data.message || "Guest details updated successfully"
         );
-        return response.data.user; // Return data for the fulfilled case
+        return response.data.user;
       } else {
         const errorMessage =
           response.data?.message || "Failed to update guest details";
         toast.error(errorMessage);
-        return thunk.rejectWithValue(errorMessage); // Reject with the error message
+        return thunk.rejectWithValue(errorMessage);
       }
     } catch (error) {
-      // Handle Axios errors
+      // Handle errors thrown by API
       if (axios.isAxiosError(error) && error.response?.data) {
         const errorMessage =
           error.response.data.message || "Details update failed";
-        toast.error(errorMessage);
+        toast.error(errorMessage); // Only one toast for errors
         return thunk.rejectWithValue(errorMessage);
       }
 
-      // Handle non-Axios errors
-      const genericError = "An unexpected error occurred";
-      toast.error(genericError);
-      return thunk.rejectWithValue(genericError);
+      // Handle unexpected errors
+      toast.error("An unexpected error occurred");
+      return thunk.rejectWithValue("Unexpected error occurred");
     }
   }
 );

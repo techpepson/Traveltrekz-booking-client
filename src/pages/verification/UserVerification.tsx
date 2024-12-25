@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/user/Navbar";
 import Footer from "../../components/user/Footer";
@@ -6,8 +6,21 @@ import { GuestServerPayload } from "../../interface/account-details";
 import { useDispatch, UseDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/config/store.config";
 import { GuestDetailsAddThunk } from "../../store/thunks/account-details-verify.reducer";
+import { getCookie } from "../../utils/cookieGetFunction";
+import { setAuth } from "../../apis/api.config";
 
 const UserVerification: React.FC = () => {
+  const [cookie, setCookie] = useState<string>("");
+
+  useEffect(() => {
+    const fetchCookie = async () => {
+      const cookie = await getCookie();
+      setCookie(cookie.token);
+      console.log(cookie);
+    };
+    fetchCookie();
+  }, []);
+
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [showModal, setShowModal] = useState(false);
@@ -66,6 +79,7 @@ const UserVerification: React.FC = () => {
   //handle submit function
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setAuth(cookie);
     dispatch(GuestDetailsAddThunk(formData));
   };
 

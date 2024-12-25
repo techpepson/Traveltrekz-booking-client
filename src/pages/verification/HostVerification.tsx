@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/user/Navbar";
 import Footer from "../../components/user/Footer";
@@ -6,11 +6,23 @@ import { HostServerPayload } from "../../interface/account-details";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/config/store.config";
 import { HostDetailsAddThunk } from "../../store/thunks/account-details-verify.reducer";
+import { getCookie } from "../../utils/cookieGetFunction";
+import { setAuth } from "../../apis/api.config";
 
 const HostVerification: React.FC = () => {
   const { loading, error, success } = useSelector(
     (store: RootState) => store.accountDetails.addHostDetails
   );
+
+  const [cookie, setCookie] = useState<string>("");
+  useEffect(() => {
+    const fetchCookie = async () => {
+      const cookie = await getCookie();
+      setCookie(cookie.token);
+      console.log(cookie);
+    };
+    fetchCookie();
+  }, []);
 
   //dispatch function
   const dispatch = useDispatch<AppDispatch>();
@@ -49,9 +61,15 @@ const HostVerification: React.FC = () => {
   };
 
   //submit function
-  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(HostDetailsAddThunk(formData));
+    setAuth(cookie); // Set auth token
+    try {
+      const result = await dispatch(HostDetailsAddThunk(formData)).unwrap(); // Wait for the response
+      console.log("Success:", result); // Log the success result
+    } catch (error) {
+      console.error("Error:", error); // Log the error
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

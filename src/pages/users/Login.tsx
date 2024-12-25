@@ -33,12 +33,10 @@ const Login: React.FC = () => {
     };
 
     try {
-      // Dispatch the login action and wait for the response
       const resultAction = await dispatch(LoginAuthThunk(loginPayload));
 
-      // Check if the login was successful
       if (LoginAuthThunk.fulfilled.match(resultAction)) {
-        login(); // Update the auth state
+        login(); // Correctly sets isAuthenticated as true
       } else {
         console.error("Login failed: ", resultAction.payload);
       }
