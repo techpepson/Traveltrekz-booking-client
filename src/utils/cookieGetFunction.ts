@@ -10,7 +10,7 @@ export const getCookie = async () => {
   const productionCookieEndpoint =
     import.meta.env.VITE_PRODUCTION_COOKIE_ENDPOINT ||
     "https://traveltrekz.onrender.com/get-cookies";
-  const cookie = await axios.get(productionCookieEndpoint, {
+  const cookie = await axios.get(cookieDevelopmentEndpoint, {
     withCredentials: true,
   });
   return cookie.data;
@@ -21,9 +21,13 @@ export const getToken = async () => {
   const cookieToken = token.token;
   const cookieStatus = token.status;
   const cookieEmail = token.email;
+  const userName = token.name;
+  const userType = token.userType;
   return {
     cookieToken,
     cookieStatus,
     cookieEmail,
+    userName,
+    userType,
   };
 };

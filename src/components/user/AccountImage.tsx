@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Profile from "../../assets/profile.svg";
+import { getToken } from "../../utils/cookieGetFunction";
+import { fetchUserDetails } from "../../utils/userDetailsFetch";
 
 const AccountImage: React.FC = () => {
+  const [joinYear, setJoinYear] = useState<string>(""); // Default empty string
+  const [verificationStatus, setVerificationStatus] = useState<boolean>(false); // Default false
+  const [phoneVerificationStatus, setPhoneVerificationStatus] =
+    useState<boolean>(false); // Default false
+  const [name, setName] = useState<string>(""); // Default empty string
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cookie = await getToken();
+        const userEmail = cookie.cookieEmail;
+        const userName = cookie.userName;
+
+        const user = await fetchUserDetails(userEmail);
+
+        // Update states
+        setName(userName);
+        setJoinYear(user?.regYear || ""); // Fallback to empty string
+        setVerificationStatus(user?.emailVerificationStatus === true); // Ensure boolean
+        setPhoneVerificationStatus(user?.phoneNumberVerification === true); // Ensure boolean
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array means this runs only once
+
   return (
     <div className="bg-blue-200 text-header-600 p-4 flex flex-col rounded-lg gap-6">
       <div className="flex flex-col items-center justify-center">
@@ -16,13 +46,19 @@ const AccountImage: React.FC = () => {
         </p>
       </div>
       <div>
-        <p className="text-xl font-semibold">John Doe</p>
+        <p className="text-xl font-semibold">{name}</p>
         <div>
           <div>
-            <p>Email Confirmed</p>
+            <p>
+              Email Confirmation Status:{" "}
+              {verificationStatus ? "Verified" : "Not verified"}
+            </p>
           </div>
           <div>
-            <p>Mobile Confirmed</p>
+            <p>
+              Mobile Confirmation Status:{" "}
+              {phoneVerificationStatus ? "Verified" : "Not verified"}
+            </p>
           </div>
         </div>
       </div>

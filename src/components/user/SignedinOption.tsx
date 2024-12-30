@@ -33,7 +33,7 @@ const SignedinOption: React.FC = () => {
     };
 
     fetchCookies(); // Call the function inside useEffect
-  }, []); // Empty dependency array to run only once on component mount
+  }, [navigate]); // Empty dependency array to run only once on component mount
 
   const handleLogout = () => {
     logout();
@@ -43,7 +43,7 @@ const SignedinOption: React.FC = () => {
   return (
     <div className="bg-white rounded-md py-6 px-3 flex flex-col gap-4 border w-fit text-header-600">
       <div className="flex flex-col gap-1 items-center justify-center px-4 w-full">
-        <img src={profilePicture} alt="" className="w-28" />
+        <img src={profilePicture} alt="user profile" className="w-28" />
         <div className="flex flex-col justify-center items-center">
           <p className="font-semibold ">{person}</p> {/* Display name */}
           <p className="text-header-400">{personEmail}</p> {/* Display email */}
