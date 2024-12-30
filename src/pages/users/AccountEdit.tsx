@@ -1,24 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/user/Navbar";
 import Footer from "../../components/user/Footer";
 import AccountImage from "../../components/user/AccountImage";
-import axios from "axios";
-import { GuestDetailsUpdate } from "../../interface/account-details";
-import Cookies from "js-cookie";
+import {
+  GuestAccountEdit,
+  GuestDetailsUpdate,
+} from "../../interface/account-details";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/config/store.config";
+import { GuestAccountEditThunk } from "../../store/thunks/account-details-verify.reducer";
+import { getToken } from "../../utils/cookieGetFunction";
 
 const AccountEdit: React.FC = () => {
   // State for form data
-  const [formData, setFormData] = useState<GuestDetailsUpdate>({
+  const [formData, setFormData] = useState<GuestAccountEdit>({
     guestPhoneNumber: "",
-    guestProfilePicture: null,
     guestBio: "",
-    guestEmail: "",
+    userEmail: "",
     guestCountry: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  //call the dispatch function
+  const dispatch = useDispatch<AppDispatch>();
   // Handle input changes
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -27,36 +33,18 @@ const AccountEdit: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  //account edit payload
+  const payload: GuestAccountEdit = {
+    userEmail: formData.userEmail,
+    guestBio: formData.guestBio,
+    guestCountry: formData.guestCountry,
+    guestPhoneNumber: formData.guestPhoneNumber,
+  };
+
   // Submit form data
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-    setMessage("");
-
-    try {
-      const token = Cookies.get("generated_token");
-      const response = await axios.patch(
-        "http://localhost:3000/users/details-role/edit", // Replace with your endpoint
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.success) {
-        setMessage("Details updated successfully.");
-      } else {
-        setMessage(response.data.message || "Failed to update details.");
-      }
-    } catch (error) {
-      console.error("Error updating details:", error);
-      setMessage("An error occurred while updating details.");
-    } finally {
-      setLoading(false);
-    }
+    dispatch(GuestAccountEditThunk(payload));
   };
 
   return (
@@ -106,7 +94,7 @@ const AccountEdit: React.FC = () => {
               <input
                 type="text"
                 name="guestEmail"
-                value={formData.guestEmail}
+                value={formData.userEmail}
                 onChange={handleChange}
                 className="border w-full rounded-md p-1 outline-none"
               />

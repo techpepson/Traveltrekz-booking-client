@@ -76,3 +76,17 @@ export interface GuestDetailsUpdate {
   guestEmail?: string;
   guestCountry?: string;
 }
+
+export interface HostAccountEdit {
+  userEmail: string;
+  hostBio: string;
+  hostPhoneNumber: string;
+  hostCountry: string;
+}
+
+export interface GuestAccountEdit {
+  userEmail: string;
+  guestBio: string;
+  guestPhoneNumber: string;
+  guestCountry: string;
+}

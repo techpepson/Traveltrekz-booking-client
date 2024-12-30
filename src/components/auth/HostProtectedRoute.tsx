@@ -8,7 +8,7 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+const HostProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const [userType, setUserType] = useState<string | null>(null); // Null initially
   const [loading, setLoading] = useState(true); // Added loading state
   const { isAuthenticated } = useAuth();
@@ -37,17 +37,17 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     if (!isAuthenticated) {
       toast.error("Please login to access this page");
       navigate("/login");
-    } else if (isAuthenticated && userType !== "guest") {
+    } else if (isAuthenticated && userType !== "host") {
       toast.error("You are not authorized here");
       navigate("/login");
     }
   }, [isAuthenticated, navigate, userType, loading]);
 
   // Render nothing while loading
-  if (loading) return <div className="loading">Please wait...</div>;
+  if (loading) return <div>Please wait...</div>;
 
   // Render children only if authorized
   return <>{children}</>;
 };
 
-export default ProtectedRoute;
+export default HostProtectedRoute;

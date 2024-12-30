@@ -37,6 +37,7 @@ const Login: React.FC = () => {
 
       if (LoginAuthThunk.fulfilled.match(resultAction)) {
         login(); // Correctly sets isAuthenticated as true
+        console.log("It is working");
       } else {
         console.error("Login failed: ", resultAction.payload);
       }

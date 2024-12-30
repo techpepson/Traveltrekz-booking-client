@@ -1,12 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  GuestAccountEdit,
   GuestServerPayload,
+  HostAccountEdit,
   HostFormData,
   HostServerPayload,
 } from "../../interface/account-details";
 import {
   addGuestDetailsApi,
   addHostDetailsApi,
+  guestAccountEditApi,
+  hostAccountEditApi,
 } from "../../apis/details-addition.api";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -59,6 +63,75 @@ export const GuestDetailsAddThunk = createAsyncThunk(
           response.data.message || "Guest details updated successfully"
         );
         return response.data.user;
+      } else {
+        const errorMessage =
+          response.data?.message || "Failed to update guest details";
+        toast.error(errorMessage);
+        return thunk.rejectWithValue(errorMessage);
+      }
+    } catch (error) {
+      // Handle errors thrown by API
+      if (axios.isAxiosError(error) && error.response?.data) {
+        const errorMessage =
+          error.response.data.message || "Details update failed";
+        toast.error(errorMessage); // Only one toast for errors
+        return thunk.rejectWithValue(errorMessage);
+      }
+
+      // Handle unexpected errors
+      toast.error("An unexpected error occurred");
+      return thunk.rejectWithValue("Unexpected error occurred");
+    }
+  }
+);
+//host account details update
+export const HostAccountEditThunk = createAsyncThunk(
+  "host-account-edit",
+  async (payload: HostAccountEdit, thunk) => {
+    try {
+      const response = await hostAccountEditApi(payload);
+
+      // Check if response exists and is successful
+      if (response && response.status >= 200 && response.status < 300) {
+        toast.success(
+          response.data.message || "Host details updated successfully"
+        );
+        return response.data.data;
+      } else {
+        const errorMessage =
+          response.data?.message || "Failed to update guest details";
+        toast.error(errorMessage);
+        return thunk.rejectWithValue(errorMessage);
+      }
+    } catch (error) {
+      // Handle errors thrown by API
+      if (axios.isAxiosError(error) && error.response?.data) {
+        const errorMessage =
+          error.response.data.message || "Details update failed";
+        toast.error(errorMessage); // Only one toast for errors
+        return thunk.rejectWithValue(errorMessage);
+      }
+
+      // Handle unexpected errors
+      toast.error("An unexpected error occurred");
+      return thunk.rejectWithValue("Unexpected error occurred");
+    }
+  }
+);
+
+//guest account edit
+export const GuestAccountEditThunk = createAsyncThunk(
+  "guest-account-edit",
+  async (payload: GuestAccountEdit, thunk) => {
+    try {
+      const response = await guestAccountEditApi(payload);
+
+      // Check if response exists and is successful
+      if (response && response.status >= 200 && response.status < 300) {
+        toast.success(
+          response.data.message || "Guest details updated successfully"
+        );
+        return response.data.data;
       } else {
         const errorMessage =
           response.data?.message || "Failed to update guest details";
