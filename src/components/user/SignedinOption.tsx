@@ -55,14 +55,18 @@ const SignedinOption: React.FC = () => {
             <img src={Notification} alt="" />
             <p>Notifications</p>
           </div>
-          <div className="flex items-center gap-2 cursor-pointer py-2 px-3 hover:bg-header-200 hover:rounded-md">
-            <img src={Reservation} alt="" />
-            <p>Reservations</p>
-          </div>
-          <div className="flex items-center gap-2 cursor-pointer py-2 px-3 hover:bg-header-200 hover:rounded-md">
-            <img src={Wishlist} alt="" />
-            <p>Wishlists</p>
-          </div>
+          <Link to='/reservation'>
+            <div className="flex items-center gap-2 cursor-pointer py-2 px-3 hover:bg-header-200 hover:rounded-md">
+              <img src={Reservation} alt="" />
+              <p>Reservations</p>
+            </div>
+          </Link>
+          <Link to='/wishlist'>
+            <div className="flex items-center gap-2 cursor-pointer py-2 px-3 hover:bg-header-200 hover:rounded-md">
+              <img src={Wishlist} alt="" />
+              <p>Wishlists</p>
+            </div>
+          </Link>
         </div>
         <div className="h-0.5 w-full bg-header-400"></div>
         <div className="flex flex-col gap-1">
