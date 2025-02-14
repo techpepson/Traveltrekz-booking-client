@@ -9,7 +9,7 @@ const developmentBaseUrl =
 
 // Axios instance for making API requests
 export const api = axios.create({
-  baseURL: developmentBaseUrl,
+  baseURL: baseUrl,
   withCredentials: true,
 });
 

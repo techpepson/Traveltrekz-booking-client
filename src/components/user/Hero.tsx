@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 import { IoSearch } from "react-icons/io5";
-import Hero1 from '../../assets/user/hero.png'
+import Hero1 from "../../assets/user/hero.png";
 
 const Hero: React.FC = () => {
   return (
@@ -76,4 +76,4 @@ const Hero: React.FC = () => {
   );
 };
 
-export default Hero
+export default Hero;
