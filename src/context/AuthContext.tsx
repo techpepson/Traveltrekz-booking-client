@@ -6,7 +6,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { getToken } from "../utils/cookieGetFunction";
+import { getCookie, getToken } from "../utils/cookieGetFunction";
 
 interface AuthContextType {
   isAuthenticated: boolean; // Ensure this is a boolean
@@ -27,29 +27,27 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   // Validate authentication using cookies
   useEffect(() => {
-    const validateAuth = async () => {
-      try {
-        const { cookieToken } = await getToken();
-        if (cookieToken) {
-          setIsAuthenticated(true);
-          localStorage.setItem("isAuthenticated", "true");
-        } else {
-          setIsAuthenticated(false);
-          localStorage.removeItem("isAuthenticated");
-        }
-      } catch (error) {
-        console.error("Cookie validation failed:", error);
+    const validateAuth = () => {
+      const cookieAuth = localStorage.getItem("isAuthenticated") === "true";
+      if (cookieAuth) {
+        setIsAuthenticated(true);
+        localStorage.setItem("isAuthenticated", "true");
+      } else {
         setIsAuthenticated(false);
+        localStorage.removeItem("isAuthenticated");
       }
     };
 
     validateAuth();
   }, []);
 
-  const login = () => {
+  const login = async () => {
     setIsAuthenticated(true);
     localStorage.setItem("isAuthenticated", "true");
-    Cookies.set("isAuthenticated", "true");
+    Cookies.set("isAuthenticated", "true", {
+      secure: true,
+      sameSite: "Strict",
+    }); // Secure cookies
   };
 
   const logout = () => {

@@ -8,9 +8,11 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const [userType, setUserType] = useState<string | null>(null); // Null initially
-  const [loading, setLoading] = useState(true); // Added loading state
+const UniversalProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
+}) => {
+  const [userType, setUserType] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true); // Loading state
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -19,7 +21,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const fetchUserType = async () => {
       try {
         const token = await getToken();
-        setUserType(token?.userType || ""); // Fallback to empty string
+        setUserType(token?.userType || "");
+        console.log("userType");
       } catch (error) {
         console.error("Failed to fetch user type:", error);
       } finally {
@@ -31,23 +34,22 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   // Authorization check
   useEffect(() => {
-    // Wait until loading is complete or userType is fetched
-    if (loading || userType === null) return;
+    if (loading || userType === null) return; // Wait until loading completes
 
-    if (!isAuthenticated) {
+    if (isAuthenticated === false) {
       toast.error("Please login to access this page");
       navigate("/login");
-    } else if (isAuthenticated && userType !== "guest") {
+    } else if (isAuthenticated && userType !== "host" && userType !== "guest") {
       toast.error("You are not authorized here");
       navigate("/login");
     }
   }, [isAuthenticated, navigate, userType, loading]);
 
-  // Render nothing while loading
-  if (loading) return <div className="loading">Please wait...</div>;
+  // Show nothing while loading
+  if (loading) return <div>Please wait...</div>;
 
-  // Render children only if authorized
+  // Render children if authorized
   return <>{children}</>;
 };
 
-export default ProtectedRoute;
+export default UniversalProtectedRoute;

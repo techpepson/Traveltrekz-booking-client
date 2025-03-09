@@ -21,6 +21,7 @@ import AboutUs from "./pages/users/AboutUs";
 import HelpCenter from "./pages/users/HelpCenter";
 import Booking from "./pages/users/Booking";
 import "@radix-ui/themes/styles.css";
+import HostProtectedRoute from "./components/auth/HostProtectedRoute";
 
 // Host Pages
 import HomeHost from "./pages/host/HomeHost";
@@ -29,7 +30,7 @@ import AccountEditHost from "./pages/host/AccountEditHost";
 import PropertiesHost from "./pages/host/PropertiesHost";
 import ReservationHost from "./pages/host/ReservationHost";
 import Transaction from "./pages/host/Transaction";
-import Birthday from "./components/birthday";
+
 // Property Management Pages
 import AddProperty1 from "./pages/host/AddProperty1";
 import AddProperty2 from "./pages/host/AddProperty2";
@@ -41,6 +42,7 @@ import AddProperty5 from "./pages/host/AddProperty5";
 import VerificationRouter from "./pages/verification/VerificationRouter";
 import { getCookie } from "./utils/cookieGetFunction";
 import { setAuth } from "./apis/api.config";
+import UniversalProtectedRoute from "./components/auth/UniversalProtectedRoute";
 
 const App: React.FC = () => {
   const [cookie, setCookie] = useState<string>("");
@@ -85,13 +87,12 @@ const App: React.FC = () => {
             }
           />
 
-          <Route path="/birthday" element={<Birthday />}></Route>
           <Route
             path="/verification"
             element={
-              <ProtectedRoute>
+              <UniversalProtectedRoute>
                 <VerificationRouter />
-              </ProtectedRoute>
+              </UniversalProtectedRoute>
             }
           />
           <Route
@@ -102,6 +103,7 @@ const App: React.FC = () => {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/reservation"
             element={
@@ -147,41 +149,42 @@ const App: React.FC = () => {
                 <Route
                   path="/account"
                   element={
-                    <ProtectedRoute>
+                    <HostProtectedRoute>
                       <AccountHost />
-                    </ProtectedRoute>
+                    </HostProtectedRoute>
                   }
                 />
+
                 <Route
                   path="/account-edit"
                   element={
-                    <ProtectedRoute>
+                    <HostProtectedRoute>
                       <AccountEditHost />
-                    </ProtectedRoute>
+                    </HostProtectedRoute>
                   }
                 />
                 <Route
                   path="/property"
                   element={
-                    <ProtectedRoute>
+                    <HostProtectedRoute>
                       <PropertiesHost />
-                    </ProtectedRoute>
+                    </HostProtectedRoute>
                   }
                 />
                 <Route
                   path="/reservation"
                   element={
-                    <ProtectedRoute>
+                    <HostProtectedRoute>
                       <ReservationHost />
-                    </ProtectedRoute>
+                    </HostProtectedRoute>
                   }
                 />
                 <Route
                   path="/transaction"
                   element={
-                    <ProtectedRoute>
+                    <HostProtectedRoute>
                       <Transaction />
-                    </ProtectedRoute>
+                    </HostProtectedRoute>
                   }
                 />
                 <Route
@@ -195,33 +198,33 @@ const App: React.FC = () => {
                 <Route
                   path="/add-property-2"
                   element={
-                    <ProtectedRoute>
+                    <HostProtectedRoute>
                       <AddProperty2 />
-                    </ProtectedRoute>
+                    </HostProtectedRoute>
                   }
                 />
                 <Route
                   path="/add-property-3"
                   element={
-                    <ProtectedRoute>
+                    <HostProtectedRoute>
                       <AddProperty3 />
-                    </ProtectedRoute>
+                    </HostProtectedRoute>
                   }
                 />
                 <Route
                   path="/add-property-4"
                   element={
-                    <ProtectedRoute>
+                    <HostProtectedRoute>
                       <AddProperty4 />
-                    </ProtectedRoute>
+                    </HostProtectedRoute>
                   }
                 />
                 <Route
                   path="/add-property-5"
                   element={
-                    <ProtectedRoute>
+                    <HostProtectedRoute>
                       <AddProperty5 />
-                    </ProtectedRoute>
+                    </HostProtectedRoute>
                   }
                 />
               </Routes>

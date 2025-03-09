@@ -1,300 +1,232 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-import Navbar from "../../components/user/Navbar";
-import Footer from "../../components/user/Footer";
-import { toast } from "react-toastify";
+import React, { useState } from "react";
 
-interface BookingFormData {
-  email: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  country: string;
-  startDate: string;
-  endDate: string;
-  guests: number;
-}
+// Import Booking Data
+import {
+  personalDetails,
+  bookingInfo,
+  bookingExtras,
+} from "../../data/booking.data"; // Adjust the path as needed.
 
-interface LocationState {
-  propertyId: string;
-  propertyName: string;
-  pricePerNight: number;
-}
+import { Button, Select, TextField } from "@radix-ui/themes";
 
 const Booking: React.FC = () => {
-  const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [isLoading, setIsLoading] = useState(true);
+  // State for tracking steps
+  const [currentStep, setCurrentStep] = useState<number>(0);
 
-  const [formData, setFormData] = useState<BookingFormData>({
-    email: "",
-    firstName: "",
-    lastName: "",
-    phone: "",
-    country: "",
-    startDate: "",
-    endDate: "",
-    guests: 1,
+  // **State for form data (Initialized using field names)**
+  const [formData, setFormData] = useState<any>({
+    personalDetails: {},
+    bookingInfo: {},
+    bookingExtras: [],
   });
 
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [numberOfNights, setNumberOfNights] = useState<number>(0);
-  const propertyDetails = location.state as LocationState | null;
+  // Steps
+  const steps = [
+    "Personal Details",
+    "Booking Info",
+    "Extras",
+    "Complete Booking",
+  ];
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      toast.error("Please login to make a booking");
-      navigate("/login");
-      return;
+  // Handle Next Step
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
     }
+  };
 
-    if (!propertyDetails) {
-      toast.error("Invalid property details");
-      navigate("/property");
-      return;
+  // Handle Previous Step
+  const handlePrev = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
     }
+  };
 
-    setIsLoading(false);
-  }, [isAuthenticated, navigate, propertyDetails]);
-
-  useEffect(() => {
-    if (
-      formData.startDate &&
-      formData.endDate &&
-      propertyDetails?.pricePerNight
-    ) {
-      const start = new Date(formData.startDate);
-      const end = new Date(formData.endDate);
-      const nights = Math.ceil(
-        (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
-      );
-      setNumberOfNights(nights);
-      setTotalPrice(nights * propertyDetails.pricePerNight);
-    }
-  }, [formData.startDate, formData.endDate, propertyDetails?.pricePerNight]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
+  // **Handle Input Change**
+  const handleInputChange = (step: string, field: string, value: string) => {
+    setFormData((prev: any) => ({
+      ...prev, // Spread the entire previous state
+      [step]: {
+        ...prev[step], // Spread the previous state for the specific step
+        [field]: value, // Update only the specific field
+      },
     }));
+    console.log(value); // Debugging
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // **Render Form Fields Dynamically**
+  const renderFormFields = () => {
+    switch (currentStep) {
+      // **Step 1: Personal Details**
+      case 0:
+        return personalDetails.map((field) => (
+          <div key={field.name} className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              {field.title}
+            </label>
+            <input
+              type="text"
+              placeholder={field.placeholder}
+              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={formData.personalDetails[field.name] || ""}
+              onChange={(e) =>
+                handleInputChange("personalDetails", field.name, e.target.value)
+              }
+            />
+          </div>
+        ));
 
-    if (!formData.startDate || !formData.endDate) {
-      toast.error("Please select booking dates");
-      return;
-    }
+      // **Step 2: Booking Info**
+      case 1:
+        return bookingInfo.map((field) => (
+          <div key={field.name} className="mb-4">
+            {/* Date Inputs */}
+            {field.title.includes("Expected") &&
+            !field.title.includes("Arrival time") ? (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {field.title}
+                </label>
+                <input
+                  type="datetime-local"
+                  className="w-full p-2 border rounded-md"
+                  value={formData.bookingInfo[field.name] || ""}
+                  onChange={(e) =>
+                    handleInputChange("bookingInfo", field.name, e.target.value)
+                  }
+                />
+              </div>
+            ) : null}
 
-    const startDate = new Date(formData.startDate);
-    const endDate = new Date(formData.endDate);
+            {/* TextField Inputs */}
+            {!field.title.includes("Expected") &&
+            !field.title.includes("Arrival time") ? (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {field.title}
+                </label>
+                <TextField.Root
+                  name={field.name}
+                  type="number"
+                  placeholder={field.title}
+                  value={formData.bookingInfo[field.name] || ""}
+                  onChange={(e) =>
+                    handleInputChange("bookingInfo", field.name, e.target.value)
+                  }
+                />
+              </div>
+            ) : null}
 
-    if (startDate >= endDate) {
-      toast.error("End date must be after start date");
-      return;
-    }
+            {/* Dropdown Select Input */}
+            {field.title.includes("Arrival time") ? (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {field.title}
+                </label>
+                <Select.Root
+                  defaultValue="morning"
+                  value={formData.bookingInfo[field.name] || "morning"}
+                  onValueChange={(value) =>
+                    handleInputChange("bookingInfo", field.name, value)
+                  }
+                >
+                  <Select.Trigger className="w-full p-2 border rounded-md" />
+                  <Select.Content>
+                    <Select.Item value="none">Cannot Tell</Select.Item>
+                    <Select.Item value="morning">Morning</Select.Item>
+                    <Select.Item value="afternoon">Afternoon</Select.Item>
+                    <Select.Item value="midnight">Midnight</Select.Item>
+                    <Select.Item value="nextDay">
+                      Next Day After Booking
+                    </Select.Item>
+                  </Select.Content>
+                </Select.Root>
+              </div>
+            ) : null}
+          </div>
+        ));
 
-    if (startDate < new Date()) {
-      toast.error("Start date cannot be in the past");
-      return;
-    }
+      // **Step 3: Booking Extras**
+      case 2:
+        return bookingExtras[0].extras.map((extra, index) => (
+          <div key={index} className="flex items-start mb-4">
+            <input
+              type="checkbox"
+              checked={formData.bookingExtras.includes(extra.title)}
+              className="checkbox checkbox-md"
+              onChange={(e) => {
+                const updatedExtras = e.target.checked
+                  ? [...formData.bookingExtras, extra.title]
+                  : formData.bookingExtras.filter(
+                      (item: string) => item !== extra.title
+                    );
 
-    // Here you would typically make an API call to save the booking
-    try {
-      // Simulate API call
-      toast.success("Booking successful!");
-      navigate("/reservation", {
-        state: {
-          reservation: {
-            ...formData,
-            propertyId: propertyDetails?.propertyId,
-            propertyName: propertyDetails?.propertyName,
-            totalPrice,
-            numberOfNights,
-          },
-        },
-      });
-    } catch (error) {
-      toast.error("Failed to create booking. Please try again.");
+                setFormData((prev: any) => ({
+                  ...prev,
+                  bookingExtras: updatedExtras,
+                }));
+              }}
+            />
+            <label className="ml-2">
+              <span className="font-medium">{extra.title}</span>
+              <span className="block text-sm text-gray-500">{extra.desc}</span>
+            </label>
+          </div>
+        ));
+
+      // **Step 4: Completion**
+      case 3:
+        return (
+          <div className="">
+            <div>
+              <h2 className="text-2xl font-bold text-green-500">
+                Booking Summary
+              </h2>
+            </div>
+            <p className="text-gray-700 mt-4">
+              Thank you for booking with us. You'll receive a confirmation email
+              shortly.
+            </p>
+          </div>
+        );
+
+      default:
+        return null;
     }
   };
-
-  if (isLoading) {
-    return (
-      <>
-        <Navbar />
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="loading loading-spinner loading-lg text-blue-600"></div>
-        </div>
-        <Footer />
-      </>
-    );
-  }
-
-  if (!propertyDetails) {
-    return null;
-  }
 
   return (
-    <>
-      <Navbar />
-      <div className="max-w-4xl mx-auto p-6 md:p-8 mt-20">
-        <h1 className="text-2xl md:text-3xl font-bold text-header-600 mb-6">
-          Book Your Stay at {propertyDetails.propertyName}
-        </h1>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-header-600 mb-2">
-                First Name
-              </label>
-              <input
-                type="text"
-                name="firstName"
-                required
-                value={formData.firstName}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-header-600 mb-2">
-                Last Name
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                required
-                value={formData.lastName}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-header-600 mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                required
-                value={formData.email}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-header-600 mb-2">
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                required
-                value={formData.phone}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-header-600 mb-2">
-                Country
-              </label>
-              <input
-                type="text"
-                name="country"
-                required
-                value={formData.country}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-header-600 mb-2">
-                Number of Guests
-              </label>
-              <input
-                type="number"
-                name="guests"
-                min="1"
-                required
-                value={formData.guests}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-header-600 mb-2">
-                Check-in Date
-              </label>
-              <input
-                type="date"
-                name="startDate"
-                required
-                value={formData.startDate}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-header-600 mb-2">
-                Check-out Date
-              </label>
-              <input
-                type="date"
-                name="endDate"
-                required
-                value={formData.endDate}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-
-          <div className="mt-8 p-6 bg-gray-50 rounded-lg">
-            <h2 className="text-xl font-semibold text-header-600 mb-4">
-              Booking Summary
-            </h2>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span>Price per night</span>
-                <span>${propertyDetails.pricePerNight}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Number of nights</span>
-                <span>{numberOfNights}</span>
-              </div>
-              <div className="h-px bg-gray-200 my-2"></div>
-              <div className="flex justify-between font-bold">
-                <span>Total Price</span>
-                <span>${totalPrice}</span>
-              </div>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-full font-semibold hover:bg-blue-700 transition duration-300"
+    <div className="p-8">
+      {/* Steps Progress */}
+      <ul className="steps steps-vertical lg:steps-horizontal mb-8">
+        {steps.map((step, index) => (
+          <li
+            key={index}
+            className={`step ${
+              index <= currentStep ? "step-primary text-blue-500" : ""
+            }`}
           >
-            Confirm Booking
-          </button>
-        </form>
+            {step}
+          </li>
+        ))}
+      </ul>
+
+      {/* Form Content */}
+      <div className="mb-8">{renderFormFields()}</div>
+
+      {/* Navigation Buttons */}
+      <div className="flex justify-between">
+        <Button disabled={currentStep === 0} onClick={handlePrev}>
+          Previous
+        </Button>
+        <Button
+          disabled={currentStep === steps.length - 1}
+          onClick={handleNext}
+        >
+          {currentStep === steps.length - 1 ? "Finish" : "Next"}
+        </Button>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 };
 

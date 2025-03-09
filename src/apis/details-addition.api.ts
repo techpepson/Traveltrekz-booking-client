@@ -1,6 +1,8 @@
 import axios from "axios";
 import {
+  GuestAccountEdit,
   GuestServerPayload,
+  HostAccountEdit,
   HostServerPayload,
 } from "../interface/account-details";
 import { getCookie } from "../utils/cookieGetFunction";
@@ -24,11 +26,7 @@ export const addHostDetailsApi = async (data: HostServerPayload) => {
     return response; // Return the response for success
   } catch (error) {
     // Handle Axios-specific errors
-    if (axios.isAxiosError(error) && error.response?.data?.message) {
-      throw new Error(error.response.data.message); // Throw custom error
-    }
-    // Throw generic error for unexpected issues
-    throw new Error("An unexpected error occurred");
+    throw error;
   }
 };
 
@@ -46,6 +44,40 @@ export const addGuestDetailsApi = async (data: GuestServerPayload) => {
     return response; // Return the response to the Thunk
   } catch (error) {
     // Throw the error and let the Thunk handle it
+    throw error;
+  }
+};
+
+//host account edit api
+export const hostAccountEditApi = async (payload: HostAccountEdit) => {
+  const endpoint = "/users/details-role/edit";
+  try {
+    const getToken = async () => {
+      const token = await getCookie();
+      return token.token;
+    };
+    const token = await getToken();
+    setAuth(token);
+    const response = await api.patch(endpoint, payload);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//guest account edit
+export const guestAccountEditApi = async (payload: GuestAccountEdit) => {
+  const endpoint = "/guest/details-role/edit";
+  try {
+    const getToken = async () => {
+      const token = await getCookie();
+      return token.token;
+    };
+    const token = await getToken();
+    setAuth(token);
+    const response = await api.patch(endpoint, payload);
+    return response;
+  } catch (error) {
     throw error;
   }
 };
